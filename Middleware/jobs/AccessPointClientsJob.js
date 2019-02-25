@@ -13,7 +13,7 @@ var job = function AccessPointClientsJob() {
         //POST call to scanning api method to perform logic and db insertion.
         _performUrlPost().then(function (result) {
             console.log('simulated apclient data is stored in database.');
-            console.log('Printing promise result ',result);
+            console.log('Printing promise result ', result);
         });
     });
 };
@@ -35,13 +35,15 @@ function _performUrlPost() {
 
     var reqPostParams = {};
     let arrayOfData = [];
-    for (var apMacAddr in apList) {
+
+    apList.forEach(apMacAddr => {
+
         let apClientsObject = {};
         apClientsObject.apMacAddr = apMacAddr;
         apClientsObject.numberOfClients = gen();
         arrayOfData.push(apClientsObject);
 
-    }
+    });
     reqPostParams.data = arrayOfData;
 
     var url = config.get("simulator.scanning.apiForSimulatedScanningApiData");
