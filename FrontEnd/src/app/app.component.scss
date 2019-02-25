@@ -1,0 +1,30 @@
+side-nav{
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    height: 100%;
+ }
+ .wrapper{
+     margin-left: 100px;
+     display: flex;
+     flex-wrap:wrap;
+ 
+     information-cards{
+         flex: 1;
+     }
+ }
+ 
+ #last-chart{
+     margin: 0;
+ }
+
+ .chart-wrapper{
+     display: flex;
+     flex-direction: row;
+     margin-left: 130px;
+
+     charts{
+        width: 43%;
+        height:100px;
+     }
+ }
