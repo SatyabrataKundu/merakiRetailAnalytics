@@ -15,6 +15,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { InformationCardsComponent } from './components/information-cards/information-cards.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { StackedBarChartComponent } from './components/stacked-bar-chart/stacked-bar-chart.component';
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { StackedBarChartComponent } from './components/stacked-bar-chart/stacked
     SideNavComponent,
     InformationCardsComponent,
     ChartsComponent,
-    StackedBarChartComponent
+    StackedBarChartComponent,
+    DonutChartComponent
   ],
   imports: [
     BrowserModule,

@@ -29,7 +29,7 @@ export class ChartsComponent implements OnInit {
     }
   ];
   public chartOptions: any = {
-    aspectRatio: 3,
+    aspectRatio: 2,
     maintainAspectRatio: true,
     responsive: false,
     legend: {
