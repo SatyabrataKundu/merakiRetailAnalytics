@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-
+/*Simulate the AP and it's associtated clients informations*/
 router.post("/generate", function (req, res) {
 
     var apDeviceCountMap = new Map();
