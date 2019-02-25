@@ -7,7 +7,7 @@ var cors = require("cors");
 var config = require("config");
 var scanningapi = require("./routes/scanningapi/index");
 var cronJobForAPClients = require("./jobs/AccessPointClientsJob");
-var simulator = require("./routes/simulator/index");
+var scanningsimulator = require("./routes/scanningsimulator/index");
 
 cronJobForAPClients.clientsJob();
 var app = express();
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 app.use(morgan("tiny"));
 app.use("/api/v0/meraki/scanning", scanningapi);
-app.use("/api/v0/meraki/simulator", simulator);
+app.use("/api/v0/meraki/scanningsimulator", scanningsimulator);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
