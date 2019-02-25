@@ -6,7 +6,9 @@ var debug = require("debug")("app");
 var cors = require("cors");
 var config = require("config");
 var scanningapi = require("./routes/scanningapi/index");
+var cronJobForAPClients = require("./jobs/AccessPointClientsJob");
 
+cronJobForAPClients.clientsJob();
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
