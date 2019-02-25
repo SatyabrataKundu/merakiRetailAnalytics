@@ -6,14 +6,14 @@ router.post("/generate", function (req, res) {
 
     var apDeviceCountMap = new Map();
     let apclients = req.body.data;
-    apclients.forEach(apclientDetails => { 
-        apDeviceCountMap.set(apclientDetails.apMacAddr,apclientDetails.numberOfClients);
+    apclients.forEach(apclientDetails => {
+        apDeviceCountMap.set(apclientDetails.apMacAddr, apclientDetails.numberOfClients);
     });
-    var scanningApClients= JSON.stringify(_generateClients(apDeviceCountMap));
+    var scanningApClients = JSON.stringify(_generateClients(apDeviceCountMap));
     console.log(scanningApClients);
     res.status(200).send(scanningApClients);
 });
-var client_macs = [], ip_count = 0;
+var client_macs = [], ip_count = 0, thirdDigit = 0;
 var device_list;
 function _generateClients(apDeviceCountMap) {
 
@@ -64,9 +64,11 @@ function generate_client_macs(num_clients) {
                 var ipv4 = "None";
                 var ssid = "None";
                 if (associated === 1) {
-                    ipv4 = "192.168.0." + (ip_count++);
-                    if(ip_count > 254){
-                        ipv4 = "192.168.1." + (ip_count-254);
+                    ipv4 = "192.168." + thirdDigit + "." + (ip_count++);
+                    if (ip_count > 254) {
+                        thirdDigit++;
+                        ip_count = 0;
+                        ipv4 = "192.168." + thirdDigit + "." + (ip_count++);
                     }
                     ssid = "SimulatorWifi";
                 }
