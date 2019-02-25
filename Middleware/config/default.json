@@ -7,7 +7,18 @@
         "dbName" : "merakidb"
       },
       "constants": {
-        "expressPort": 4004
+        "expressPort": 4004,
+        "apclientsJobTimer" : "*/30 * * * * *"
+      }
+    },
+    "simulator": {
+      "scanning" : {
+        "apMac1" : "00:2b:01:00:07:00",
+        "apMac2" : "00:a6:ca:f9:6a:00",
+        "apMac3" : "84:3d:c6:0a:bc:00",
+        "apMac4" : "00:c6:03:00:09:00",
+        "apiForSimulatedScanningApiData" : "http://localhost:4004/api/v0/meraki/scanningsimulator/generate"
+
       }
     }
   }
