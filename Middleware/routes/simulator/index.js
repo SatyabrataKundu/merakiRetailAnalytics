@@ -1,6 +1,21 @@
+var express = require("express");
+var router = express.Router();
+
+
+router.post("/generate", function (req, res) {
+
+    var apDeviceCountMap = new Map();
+    let apclients = req.body.data;
+    apclients.forEach(apclientDetails => { 
+        apDeviceCountMap.set(apclientDetails.apMacAddr,apclientDetails.numberOfClients);
+    });
+    var scanningApClients= JSON.stringify(_generateClients(apDeviceCountMap));
+    console.log(scanningApClients);
+    res.status(200).send(scanningApClients);
+});
 var client_macs = [], ip_count = 0;
 var device_list;
-function generateClients(apDeviceCountMap) {
+function _generateClients(apDeviceCountMap) {
 
     device_list = [
         { "os": "Android", "manufacturer": "Samsung" },
@@ -110,13 +125,16 @@ function getRandomUNC(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-function start() {
-    var apDeviceCountMap = new Map();
-    apDeviceCountMap.set("mac1", 10);
-    apDeviceCountMap.set("mac2", 6);
-    apDeviceCountMap.set("mac3", 8);
-    apDeviceCountMap.set("mac4", 4);
-    console.log(JSON.stringify(generateClients(apDeviceCountMap)));
-}
+module.exports = router;
 
-start();
+
+// function start() {
+//     var apDeviceCountMap = new Map();
+//     apDeviceCountMap.set("mac1", 10);
+//     apDeviceCountMap.set("mac2", 6);
+//     apDeviceCountMap.set("mac3", 8);
+//     apDeviceCountMap.set("mac4", 4);
+//     console.log(JSON.stringify(generateClients(apDeviceCountMap)));
+// }
+
+// start();
