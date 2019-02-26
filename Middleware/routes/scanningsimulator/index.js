@@ -69,7 +69,6 @@ function _apClientMap(apDeviceCountMap) {
         var num_clients = item[1];
         generate_client_ap_array(num_clients,dbInsertArray, item[0]);
     }
-    console.log('PRINTING DBINSERT ARRAY ',dbInsertArray);
     return dbInsertArray;
 
 }

@@ -26,12 +26,11 @@ var job = function AccessPointClientsJob() {
         //POST call to scanning api method to perform logic and db insertion.
         _performUrlPost().then(function (result) {
             console.log('simulated apclient data is stored in database.');
-            console.log('Printing promise result ', result);
 
             result.forEach(function (value) {
 
                 var datetime = new Date();
-                console.log("date", dateFormat(datetime, "yyyy-mm-dd"));
+               
                 let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
                 let yearValue = dateFormat(datetime, "yyyy");
                 let monthValue = dateFormat(datetime, "m");
@@ -56,8 +55,8 @@ var job = function AccessPointClientsJob() {
                     + " VALUES ('"
                     + JSON.stringify(value.apMacAddress) + "','"
                     + JSON.stringify(value.clientMacAddress) + "',"
-                    + datetime.getTime() + ","
-                    + formattedDateString + ","
+                    + datetime.getTime() + ",'"
+                    + formattedDateString + "',"
                     + yearValue + ","
                     + monthValue + ","
                     + weekValue + ","
