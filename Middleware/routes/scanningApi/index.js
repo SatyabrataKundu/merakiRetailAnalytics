@@ -3,6 +3,8 @@ var router = express.Router();
 var rn = require('random-number');
 var promise = require("bluebird");
 var config = require("config");
+var dateFormat = require("dateformat");
+
 var dbOptions = {
     // Initialization Options
     promiseLib: promise
@@ -34,7 +36,8 @@ router.get("/", function (req, res) {
 /*Retrieving Unique Clients Count from database for perticular date */
 
 router.get("/visitorCountByDate", function (req, res) {
-    let date = req.query.date;
+    var datetime = new Date();
+    let date = req.query.date ||  dateFormat(datetime, "yyyy-mm-dd");
     console.log("value of date ", date);
 
     db.any("select count (distinct (client_mac_address)) from meraki.scanning_ap_data where dateformat_date ='" + date + "'")
