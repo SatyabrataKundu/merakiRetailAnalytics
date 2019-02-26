@@ -3,6 +3,19 @@ var config = require("config");
 var rn = require('random-number');
 var Request = require("request");
 const debug = require("debug");
+var promise = require("bluebird");
+var dateFormat = require("dateformat");
+let date = require('date-and-time');
+var dbOptions = {
+    // Initialization Options
+    promiseLib: promise
+};
+var pgp = require("pg-promise")(dbOptions);
+
+var connectionString = "postgres://" + config.get("environment.merakiConfig.dbUserName") + ":" +
+    config.get("environment.merakiConfig.dbPassword") + "@localhost:" + config.get("environment.merakiConfig.dbPort") +
+    "/" + config.get("environment.merakiConfig.dbName");
+var db = pgp(connectionString);
 
 
 var job = function AccessPointClientsJob() {
@@ -14,6 +27,63 @@ var job = function AccessPointClientsJob() {
         _performUrlPost().then(function (result) {
             console.log('simulated apclient data is stored in database.');
             console.log('Printing promise result ', result);
+
+            result.forEach(function (value) {
+
+                var datetime = new Date();
+                console.log("date", dateFormat(datetime, "yyyy-mm-dd"));
+                let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
+                let yearValue = dateFormat(datetime, "yyyy");
+                let monthValue = dateFormat(datetime, "m");
+                let weekValue = dateFormat(datetime, "W");
+                let dayValue = dateFormat(datetime, "d");
+                let hourValue = dateFormat(datetime, "H");
+                let minuteValue = dateFormat(datetime, "M");
+
+                var insertQueryForDB = "INSERT INTO meraki.scanning_ap_data "
+                    + "(ap_mac_address,"
+                    + "client_mac_address,"
+                    + "datetime, "
+                    + "dateformat_date,"
+                    + "dateformat_year, "
+                    + "dateformat_month,"
+                    + "dateformat_week, "
+                    + "dateformat_day, "
+                    + "dateformat_hour, "
+                    + "dateformat_minute,"
+                    + "rssi,"
+                    + "seen_epoch )"
+                    + " VALUES ('"
+                    + JSON.stringify(value.apMacAddress) + "','"
+                    + JSON.stringify(value.clientMacAddress) + "',"
+                    + datetime.getTime() + ","
+                    + formattedDateString + ","
+                    + yearValue + ","
+                    + monthValue + ","
+                    + weekValue + ","
+                    + dayValue + ","
+                    + hourValue + ","
+                    + minuteValue + ","
+                    + value.rssi + ","
+                    + value.seenEpoch
+                    + ")";
+
+                return new Promise(function (fulfill, reject) {
+                    db.none(insertQueryForDB)
+                        .then(function (response) {
+
+                            console.log("db insert success for clientMac ", value.clientMacAddress);
+                            fulfill(response);
+                        })
+                        .catch(function (err) {
+                            console.log("not able to get connection " + err);
+                            reject(err);
+                        });
+                });
+
+
+
+            });
         });
     });
 };
