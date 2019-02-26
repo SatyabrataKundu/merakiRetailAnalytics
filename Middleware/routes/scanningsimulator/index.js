@@ -4,7 +4,7 @@ var router = express.Router();
 
 /*Simulate the AP and it's associtated clients informations*/
 router.post("/generateApClientMap", function (req, res) {
-    
+
     var apDeviceCountMap = new Map();
     let apclients = req.body.data;
     apclients.forEach(apclientDetails => {
@@ -16,9 +16,10 @@ router.post("/generateApClientMap", function (req, res) {
 });
 
 
+
 /*Simulate the AP and it's associtated clients informations*/
 router.post("/generate", function (req, res) {
-    
+
     var apDeviceCountMap = new Map();
     let apclients = req.body.data;
     apclients.forEach(apclientDetails => {
@@ -63,16 +64,16 @@ function _generateClients(apDeviceCountMap) {
 }
 
 function _apClientMap(apDeviceCountMap) {
-    var dbInsertArray =[];
+    var dbInsertArray = [];
     var iterator = apDeviceCountMap[Symbol.iterator]();
     for (let item of iterator) {
         var num_clients = item[1];
-        generate_client_ap_array(num_clients,dbInsertArray, item[0]);
+        generate_client_ap_array(num_clients, dbInsertArray, item[0]);
     }
     return dbInsertArray;
 
 }
-function generate_client_ap_array(num_clients,dbInsertArray, apMac) {
+function generate_client_ap_array(num_clients, dbInsertArray, apMac) {
 
     for (client = 1; client <= num_clients; client++) {
         var client_mac = "";
@@ -95,7 +96,7 @@ function generate_client_ap_array(num_clients,dbInsertArray, apMac) {
                 dbInsertArray.push(dbInsertObject);
             }
         }
-        
+
     }
 }
 
