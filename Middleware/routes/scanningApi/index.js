@@ -37,7 +37,7 @@ router.get("/", function (req, res) {
 
 router.get("/visitorCountByDate", function (req, res) {
     var datetime = new Date();
-    let date = req.query.date ||  dateFormat(datetime, "yyyy-mm-dd");
+    let date = req.query.date || dateFormat(datetime, "yyyy-mm-dd");
     console.log("value of date ", date);
 
     db.any("select count (distinct (client_mac_address)) from meraki.scanning_ap_data where dateformat_date ='" + date + "'")
@@ -50,5 +50,89 @@ router.get("/visitorCountByDate", function (req, res) {
             console.log("not able to get connection " + err);
             res.status(500).send(JSON.stringify(err.message));
         });
+});
+
+router.get("/visitorPattern", function (req, res) {
+    let pattern = req.query.pattern || 'daily';
+    if (pattern == 'daily') {
+        var datetime = new Date();
+        let date = dateFormat(datetime, "yyyy-mm-dd");
+        db.any("select count (distinct (client_mac_address)), dateformat_hour from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
+            .then(function (result) {
+                console.log("db select success for date ", result);
+                res.status(200).send(result);
+
+            })
+            .catch(function (err) {
+                console.log("not able to get connection " + err);
+                res.status(500).send(JSON.stringify(err.message));
+            });
+    } else if (pattern == 'yesterday') {
+        var datetime = new Date();
+        datetime.setDate(datetime.getDate() - 1);
+        let date = dateFormat(datetime, "yyyy-mm-dd");
+
+        db.any("select count (distinct (client_mac_address)), dateformat_hour from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
+            .then(function (result) {
+                console.log("db select success for date ", result);
+                res.status(200).send(result);
+
+            })
+            .catch(function (err) {
+                console.log("not able to get connection " + err);
+                res.status(500).send(JSON.stringify(err.message));
+            });
+    } else if (pattern == 'this week') {
+        let weekValue = dateFormat(datetime, "W");
+        db.any("select count (distinct (client_mac_address)), dateformat_day from meraki.scanning_ap_data where dateformat_week =" + weekValue + " group by dateformat_day")
+            .then(function (result) {
+                console.log("db select success for date ", result);
+                res.status(200).send(result);
+
+            })
+            .catch(function (err) {
+                console.log("not able to get connection " + err);
+                res.status(500).send(JSON.stringify(err.message));
+            });
+    } else if (pattern == 'last week') {
+        let weekValue = dateFormat(datetime, "W");
+        weekValue = weekValue - 1;
+        db.any("select count (distinct (client_mac_address)), dateformat_day from meraki.scanning_ap_data where dateformat_week =" + weekValue + " group by dateformat_day")
+            .then(function (result) {
+                console.log("db select success for date ", result);
+                res.status(200).send(result);
+
+            })
+            .catch(function (err) {
+                console.log("not able to get connection " + err);
+                res.status(500).send(JSON.stringify(err.message));
+            });
+    } else if (pattern == 'this month') {
+        let monthValue = dateFormat(datetime, "m");
+        db.any("select count (distinct (client_mac_address)), dateformat_week from meraki.scanning_ap_data where dateformat_month =" + monthValue + " group by dateformat_week;")
+            .then(function (result) {
+                console.log("db select success for date ", result);
+                res.status(200).send(result);
+
+            })
+            .catch(function (err) {
+                console.log("not able to get connection " + err);
+                res.status(500).send(JSON.stringify(err.message));
+            });
+    } else if (pattern == 'last month') {
+        let monthValue = dateFormat(datetime, "m");
+        monthValue = monthValue = 1;
+        db.any("select count (distinct (client_mac_address)), dateformat_week from meraki.scanning_ap_data where dateformat_month =" + monthValue + " group by dateformat_week;")
+            .then(function (result) {
+                console.log("db select success for date ", result);
+                res.status(200).send(result);
+
+            })
+            .catch(function (err) {
+                console.log("not able to get connection " + err);
+                res.status(500).send(JSON.stringify(err.message));
+            });
+    }
+
 });
 module.exports = router;
