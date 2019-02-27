@@ -53,8 +53,8 @@ router.get("/visitorCountByDate", function (req, res) {
 });
 
 router.get("/visitorPattern", function (req, res) {
-    let pattern = req.query.pattern || 'daily';
-    if (pattern == 'daily') {
+    let pattern = req.query.pattern || 'today';
+    if (pattern == 'today') {
         var datetime = new Date();
         let date = dateFormat(datetime, "yyyy-mm-dd");
         db.any("select count (distinct (client_mac_address)), dateformat_hour from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
@@ -135,4 +135,19 @@ router.get("/visitorPattern", function (req, res) {
     }
 
 });
+
+router.get("/currentVisitorCount", function (req, res) {
+    db.any("SELECT visitor_count FROM meraki.scanning_visitorinfo ORDER BY scanning_visitorinfo_uniq_key DESC LIMIT 1")
+        .then(function (result) {
+            console.log("db select success for date ", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+});
+
+
 module.exports = router;
