@@ -16,6 +16,7 @@ import { InformationCardsComponent } from './components/information-cards/inform
 import { ChartsComponent } from './components/charts/charts.component';
 import { StackedBarChartComponent } from './components/stacked-bar-chart/stacked-bar-chart.component';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DonutChartComponent } from './components/donut-chart/donut-chart.compon
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ChartsModule,
     MatToolbarModule,
     MatIconModule,
