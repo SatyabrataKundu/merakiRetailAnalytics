@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Chart } from 'chart.js'
 
 @Component({
   selector: 'donut-chart',
@@ -17,19 +18,24 @@ export class DonutChartComponent implements OnInit {
       hoverBackgroundColor: ['rgba(175, 122, 197,1)', "rgba(100, 123, 20, 1)", "rgba(255, 20, 100, 1)"]
     }
   ];
+  
+
+
   public chartOptions: any = {
     maintainAspectRatio: true,
+    cutoutPercentage: 65,
+    animateScale : true,
     responsive: true,
     legend: {
-      display: true,
+      display: false,
       
     },
     animation: {
       animateScale: true
     },
-    animationDuration: 600,
+    
     hover:{
-      scale: 2
+      animationDuration: 600,
     }
   }
   
