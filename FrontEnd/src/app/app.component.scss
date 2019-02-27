@@ -23,16 +23,31 @@ side-nav{
      flex-direction: row;
      margin-left: 130px;
      align-items: center;
+     justify-content: center;
 
-     charts{
+     donut-chart{
         width: 43%;
         height:100px;
      }
 
-     donut-chart{
+     charts {
          position: absolute;
          left: 60vw;
          width: 35%;
          margin-top: 12vw;
+     }
+ }
+
+ .bar-chart-wrapper{
+     display: flex;
+     flex-direction: row;
+     margin-left: 8vw;
+     margin-right: 2vw;
+     justify-content: space-between;
+     position: absolute;
+     top: 35vw;
+     
+     charts:last-of-type{
+        margin-left: 7vw;
      }
  }

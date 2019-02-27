@@ -9,20 +9,27 @@ export class DonutChartComponent implements OnInit {
 
   constructor() { }
   public chartType: string = "doughnut";
-  public chartLabels: Array<string> =['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  public chartLabels: Array<string> =['Total checkouts', 'Total visitors', 'Total purchase'];
   public chartData: Array<number> = [350, 450, 100];
   public colorOptions: Array<any> = [
     {
-      // grey
-      backgroundColor: "rgba(139, 208, 10, 0.3)",
-      borderColor: "#00496B"
+      backgroundColor: ["rgba(175, 122, 197,0.4)","rgba(100, 123, 20, 0.4)","rgba(255, 20, 100, 0.4)" ],
+      hoverBackgroundColor: ['rgba(175, 122, 197,1)', "rgba(100, 123, 20, 1)", "rgba(255, 20, 100, 1)"]
     }
   ];
   public chartOptions: any = {
     maintainAspectRatio: true,
     responsive: true,
     legend: {
-      display: false
+      display: true,
+      
+    },
+    animation: {
+      animateScale: true
+    },
+    animationDuration: 600,
+    hover:{
+      scale: 2
     }
   }
   
