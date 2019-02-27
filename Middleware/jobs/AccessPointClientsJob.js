@@ -97,8 +97,8 @@ function _performUrlPost() {
 
     console.log('Printing aplist ', apList);
     var gen = rn.generator({
-        min: 0,
-        max: 10,
+        min: config.get("simulator.scanning.minimum_clients_ap"),
+        max: config.get("simulator.scanning.maximum_clients_ap"),
         integer: true
     })
 
