@@ -75,29 +75,47 @@ function _apClientMap(apDeviceCountMap) {
 }
 function generate_client_ap_array(num_clients, dbInsertArray, apMac) {
 
+    // for (client = 1; client <= num_clients; client++) {
+    //     var client_mac = "";
+    //     for (mac_part = 0; mac_part < 6; mac_part++) {
+    //         var alphabet = "0123456789abcdef";
+    //         var emptyString = "";
+    //         while (emptyString.length < 2) {
+    //             emptyString += alphabet[Math.floor(Math.random() * alphabet.length)];
+    //         }
+    //         client_mac += emptyString;
+    //         if (mac_part < 5) {
+    //             client_mac += ":"
+    //         } else {
+    //             let dbInsertObject = {};
+    //             dbInsertObject.apMacAddress = apMac;
+    //             dbInsertObject.clientMacAddress = client_mac;
+    //             let rssiValue = getRandomInt(25, 120);
+    //             dbInsertObject.rssi = rssiValue;
+    //             dbInsertObject.seenEpoch = (new Date).getTime();
+    //             dbInsertArray.push(dbInsertObject);
+    //         }
+    //     }
+
+    // }
+
+
     for (client = 1; client <= num_clients; client++) {
-        var client_mac = "";
-        for (mac_part = 0; mac_part < 6; mac_part++) {
-            var alphabet = "0123456789abcdef";
-            var emptyString = "";
-            while (emptyString.length < 2) {
-                emptyString += alphabet[Math.floor(Math.random() * alphabet.length)];
-            }
-            client_mac += emptyString;
-            if (mac_part < 5) {
-                client_mac += ":"
-            } else {
+        var client_mac = "ff:28:c7:db:20:";
+        var alphabet = "0123456789abcdef";
+        var randomNum = "012";
+        var appendChar = alphabet[Math.floor(Math.random() * alphabet.length)];
+        var appendNum = randomNum[Math.floor(Math.random() * randomNum.length)];
                 let dbInsertObject = {};
                 dbInsertObject.apMacAddress = apMac;
-                dbInsertObject.clientMacAddress = client_mac;
+                dbInsertObject.clientMacAddress = client_mac+appendNum+appendChar;
                 let rssiValue = getRandomInt(25, 120);
                 dbInsertObject.rssi = rssiValue;
                 dbInsertObject.seenEpoch = (new Date).getTime();
                 dbInsertArray.push(dbInsertObject);
-            }
-        }
-
     }
+
+
 }
 
 
