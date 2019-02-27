@@ -17,8 +17,11 @@
         "apMac2" : "00:a6:ca:f9:6a:00",
         "apMac3" : "84:3d:c6:0a:bc:00",
         "apMac4" : "00:c6:03:00:09:00",
-        "apiForSimulatedScanningApiData" : "http://localhost:4004/api/v0/meraki/scanningsimulator/generateApClientMap"
-
+        "apiForSimulatedScanningApiData" : "http://localhost:4004/api/v0/meraki/scanningsimulator/generateApClientMap",
+        "minimum_clients_ap" : 2,
+        "maximum_clients_ap" : 10,
+        "client_mac_1" :"c1:2b:00:00:00:00",
+        "client_mac_2" :"c2:2b:00:00:00:00"
       }
     }
   }

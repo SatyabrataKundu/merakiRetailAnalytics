@@ -97,7 +97,7 @@ function _performUrlPost() {
 
     console.log('Printing aplist ', apList);
     var gen = rn.generator({
-        min: 2,
+        min: 0,
         max: 10,
         integer: true
     })
