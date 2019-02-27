@@ -14,7 +14,7 @@ var cronJobForPosData = require("./jobs/PosDataGenerationJob");
 var possimulator = require("./routes/posSimulator/index");
 
 //cronJobForAPClients.clientsJob();
-//ronJobForPosData.PosJob();
+cronJobForPosData.posJob();
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

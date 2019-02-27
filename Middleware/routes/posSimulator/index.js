@@ -15,16 +15,17 @@ var dbOptions = {
 var pgp = require("pg-promise")(dbOptions);
 
 var connectionString = "postgres://" + config.get("environment.merakiConfig.dbUserName") + ":" +
-    "postgres" + "@localhost:" + config.get("environment.merakiConfig.dbPort") +
+    config.get("environment.merakiConfig.dbPassword") + "@localhost:" + config.get("environment.merakiConfig.dbPort") +
     "/" + config.get("environment.merakiConfig.dbName");
 var db = pgp(connectionString);
 
 
 /*Simulate the POS informations*/
 router.get("/generatePOSdata", function (req, res) {
-
+    var response = {};
     _performPosUrlPost()
-    res.status(200).send("sucess");
+    response.message="success"
+    res.status(200).send(response);
 });
 
 function _performPosUrlPost() {
@@ -79,14 +80,14 @@ function _performPosUrlPost() {
             + JSON.stringify(posObject.randomNumberOfItems) + ","
             + JSON.stringify(posObject.randomTotalAmount) + ","
             + JSON.stringify(posObject.posCounterNumber) + ",'"
-            + datetime.getTime() + ",'"
+            + datetime.getTime() + "','"
             + formattedDateString + "',"
             + yearValue + ","
             + monthValue + ","
             + weekValue + ","
             + dayValue + ","
             + hourValue + ","
-            + minuteValue + ","
+            + minuteValue
             + ")";
 
         db.none(insertQueryForDB)
