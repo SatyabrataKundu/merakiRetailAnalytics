@@ -1,14 +1,13 @@
 .information-cards-wrapper {
   display: flex;
   flex-direction: row;
-  padding-left: 2.2vw;
-  padding-top: 1.2vw;
-  padding-right: 1.5vw;
+  padding-left: 1.2vw;
+  padding-top: 1.2vw; 
   width: 100%;
   justify-content: space-between;
 
   .cards {
-    width: 29vw;
+    flex-grow: 1;
     height: 9vw;
     margin-inline-end: 20px;
     border-radius: 0.5vw;

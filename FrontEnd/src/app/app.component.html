@@ -1,13 +1,21 @@
 <side-nav></side-nav>
 <div>
-<div class=wrapper>
-  <information-cards></information-cards>
+  <div class=wrapper>
+    <information-cards></information-cards>
+  </div>
+
+  <div class="chart-wrapper">
+    <!-- <charts></charts> -->
+    <donut-chart id="donut"></donut-chart>
+
+  </div>
+<div class="container-fluid">
+  <div class="bar-chart-wrapper">
+    <charts></charts>
+    <charts></charts>
+  </div>
+</div>
 </div>
 
-<div class="chart-wrapper">
-  <charts></charts>
-  <donut-chart></donut-chart>
-</div>
-</div>
 
 <router-outlet></router-outlet>
