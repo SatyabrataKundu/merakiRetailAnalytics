@@ -24,7 +24,7 @@ var db = pgp(connectionString);
 router.get("/generatePOSdata", function (req, res) {
     var response = {};
     _performPosUrlPost()
-    response.message="success"
+    response.message = "success"
     res.status(200).send(response);
 });
 
@@ -92,7 +92,7 @@ function _performPosUrlPost() {
 
         db.none(insertQueryForDB)
             .then(function (response) {
-                console.log("db insert success for uuid ",posObject);              
+                console.log("db insert success for uuid ", posObject);
             })
             .catch(function (err) {
                 console.log("not able to get connection " + err);
@@ -101,5 +101,40 @@ function _performPosUrlPost() {
     }
     console.log(arrayOfData);
 }
+
+router.get("/totalAmount", function (req, res) {
+    var datetime = new Date();
+    let date = dateFormat(datetime, "yyyy-mm-dd");
+    console.log("value of date ", date);
+
+    db.any("select sum(total_amount) from meraki.pos_data where dateformat_date ='" + date + "'")
+        .then(function (result) {
+            console.log("db select success for date ", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+});
+
+
+router.get("/totalTransactions", function (req, res) {
+    var datetime = new Date();
+    let date = req.query.date || dateFormat(datetime, "yyyy-mm-dd");
+    console.log("value of date ", date);
+
+    db.any("select count(total_amount) from meraki.pos_data where dateformat_date ='" + date + "'")
+        .then(function (result) {
+            console.log("db select success for date ", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+});
 
 module.exports = router;
