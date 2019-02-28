@@ -1,53 +1,76 @@
-side-nav{
+side-nav {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  height: 100%;
+}
+
+.wrapper {
+  margin-left: 100px;
+  display: flex;
+  flex-wrap: wrap;
+
+  information-cards {
+    flex: 1;
+  }
+}
+
+#last-chart {
+  margin: 0;
+}
+
+.chart-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-left: 130px;
+  align-items: center;
+  justify-content: center;
+
+  .info-center {
+    height: 20vw;
+    border-radius: 1vw;
+    padding: 2vw;
+    box-shadow: 0px 0px 20px rgba(128, 128, 128, 0.904);
+    flex-grow: 1;
+
+    p {
+      color: rgb(77, 77, 77);
+      font-size: 2vw;
+      font-weight: 700;
+    }
+  }
+
+  donut-chart {
+    flex-basis: 3vw;
+    height: 100px;
+  }
+
+  charts {
     position: absolute;
-    top: 0;
-    z-index: 1;
-    height: 100%;
- }
- .wrapper{
-     margin-left: 100px;
-     display: flex;
-     flex-wrap:wrap;
- 
-     information-cards{
-         flex: 1;
-     }
- }
- 
- #last-chart{
-     margin: 0;
- }
+    left: 60vw;
+    width: 35%;
+    margin-top: 12vw;
+  }
+}
 
- .chart-wrapper{
-     display: flex;
-     flex-direction: row;
-     margin-left: 130px;
-     align-items: center;
-     justify-content: center;
+.bar-chart-wrapper {
+  margin-top: 3vw;
+  margin-left: 8vw;
+}
 
-     donut-chart{
-        width: 43%;
-        height:100px;
-     }
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+  .bar-chart-wrapper {
+    margin-top: 3vw;
+    margin-left: 13vw;
+    margin-right: 10%;
+  }
+}
 
-     charts {
-         position: absolute;
-         left: 60vw;
-         width: 35%;
-         margin-top: 12vw;
-     }
- }
-
- .bar-chart-wrapper{
-     display: flex;
-     flex-direction: row;
-     margin-left: 8vw;
-     margin-right: 2vw;
-     justify-content: space-between;
-     position: absolute;
-     top: 35vw;
-     
-     charts:last-of-type{
-        margin-left: 7vw;
-     }
- }
+@media screen and (min-width: 1200px) and (max-width: 1800px) {
+  .bar-chart-wrapper {
+    margin-top: 3vw;
+    margin-left: 11vw;
+    margin-right: 6%;
+   
+  }
+}

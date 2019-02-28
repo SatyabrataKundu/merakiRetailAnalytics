@@ -25,12 +25,11 @@ export class InformationCardsComponent implements OnInit {
   ngOnInit() {
     
     Observable
-    interval(1000 * 3).subscribe(() => {
-      this.http.get('http://localhost:4004/api/v0/meraki/scanning/')
+    interval(1000).subscribe(() => {
+      this.http.get('http://localhost:4004/api/v0/meraki/scanning/currentVisitorCount')
       .subscribe(res => {
         this.countUpdt = res;
-        this.countUpdt1 = this.countUpdt.count;
-        console.log(this.countUpdt);
+        this.countUpdt1 = this.countUpdt[0].visitor_count;
       })
     })
   }
