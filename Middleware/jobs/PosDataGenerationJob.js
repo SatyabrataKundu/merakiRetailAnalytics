@@ -1,16 +1,27 @@
-// JavaScript source code
-var shedule = require('node-schedule');
-/* run the job at every 5 mins*/
-var event = shedule.scheduleJob('*/5 * * * *', function () {
-    for(var i = 0; i < getRandomInt(10); i++) {
-        var randomNumberOfItems = getRandomInt(10);
-        var randomTotalAmount = getRandomInt(10000);
+var schedule = require("node-schedule");
+var config = require("config");
+var Request = require("request");
+const debug = require("debug");
+var dateFormat = require("dateformat");
 
-         console.log('This runs every 5 minutes' + randomNumberOfItems +' ' +randomTotalAmount);
-       }
-    
-});
+var job = function POSCronJob() {
+    schedule.scheduleJob(config.get("environment.constants.posJobTimer"), function () {
+        var datetime = new Date();
+        console.log("POS Job Running at : ", datetime);
+        var url = config.get("simulator.scanning.apiForSimulatedScanningApiData");
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+        Request.get({
+            "url": config.get("simulator.pos.posSimulatedData")       
+        }, (error, response, body) => {
+            if (error) {
+                debug("Error: " + error.message);
+            } else {
+                let returnData = {};
+                returnData = JSON.parse(body);
+                debug("Response success : " + returnData);
+            }
+        });
+    });
 }
+
+module.exports.posJob = job;

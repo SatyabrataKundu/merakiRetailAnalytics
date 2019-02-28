@@ -8,7 +8,8 @@
       },
       "constants": {
         "expressPort": 4004,
-        "apclientsJobTimer" : "*/30 * * * * *"
+        "apclientsJobTimer" : "*/30 * * * * *",
+        "posJobTimer" : "*/30 * * * * *"
       }
     },
     "simulator": {
@@ -22,6 +23,9 @@
         "maximum_clients_ap" : 10,
         "client_mac_1" :"c1:2b:00:00:00:00",
         "client_mac_2" :"c2:2b:00:00:00:00"
+      },
+      "pos":{
+        "posSimulatedData" : "http://localhost:4004/api/v0/meraki/posSimulator/generatePOSdata"
       }
     }
   }
