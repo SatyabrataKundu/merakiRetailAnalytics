@@ -8,13 +8,16 @@ var config = require("config");
 var scanningapi = require("./routes/scanningapi/index");
 
 var cronJobForAPClients = require("./jobs/AccessPointClientsJob");
+var merakicamera = require("./routes/merakicamera/index");
+var cronJobForMerakiCamData = require("./jobs/MVCameraDataJob");
 
 var scanningsimulator = require("./routes/scanningsimulator/index");
 var cronJobForPosData = require("./jobs/PosDataGenerationJob");
 var possimulator = require("./routes/posSimulator/index");
 
-//cronJobForAPClients.clientsJob();
+cronJobForAPClients.clientsJob();
 cronJobForPosData.posJob();
+cronJobForMerakiCamData.cameraJob();
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -25,6 +28,7 @@ app.use(morgan("tiny"));
 app.use("/api/v0/meraki/scanning", scanningapi);
 app.use("/api/v0/meraki/scanningsimulator", scanningsimulator);
 app.use("/api/v0/meraki/posSimulator", possimulator);
+app.use("/api/v0/meraki/camera",merakicamera);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

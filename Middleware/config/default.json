@@ -9,7 +9,8 @@
       "constants": {
         "expressPort": 4004,
         "apclientsJobTimer" : "*/30 * * * * *",
-        "posJobTimer" : "*/30 * * * * *"
+        "posJobTimer" : "*/30 * * * * *",
+        "mvCameraJobTimer" : "*/1 * * * *"
       }
     },
     "simulator": {
@@ -26,6 +27,18 @@
       },
       "pos":{
         "posSimulatedData" : "http://localhost:4004/api/v0/meraki/posSimulator/generatePOSdata"
+      },
+      "merakicam":{
+        "entryZoneId" : 1,
+        "checkoutZoneId" : 2,
+        "kidsZoneId" : 3,
+        "groceryZoneId" : 4,
+        "apparelZoneId" : 5,
+        "furnitureZoneId" : 6,
+        "electronicsZoneId" : 7,
+        "exitZoneId" : 8,
+        "fetchCameraDetectionsApi" : "http://localhost:4004/api/v0/meraki/camera/"
       }
+
     }
   }
