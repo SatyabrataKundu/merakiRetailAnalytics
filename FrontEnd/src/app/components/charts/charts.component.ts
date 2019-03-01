@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { HttpClient } from '@angular/common/http';
+import { ChartdataService } from 'src/app/services/chartdata.service';
 
 @Component({
   selector: 'charts',
@@ -9,12 +10,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ChartsComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private chartService: ChartdataService) { }
   selectedValue:  any;
+  granularity: any;
+  pattern : string = "";
+  flag:boolean =  false;
 
   period = [
     { value: "Hourly Till Now", viewValue: "Today" },
     { value: "Hourly", viewValue: "Yesterday" },
+    { value: "Daily Till Now", viewValue: "This Week" },
     { value: "Daily", viewValue: "Last Week" },
     { value: "Weekly Till Now", viewValue: "This Month" },
     { value: "Weekly", viewValue: "Last Month" }
@@ -104,18 +109,43 @@ export class ChartsComponent implements OnInit {
   };
 
   proximityChartUpdate(){
+
+    this.chartData=[];
+    
+    if(this.flag){
     this.chartData=[];
     for(let i of this.proximityDataFetched){
       this.chartData.push(i.count);
-      
     }
+    }
+
+    this.chartService.getChartData()
+    .subscribe(res => {
+      this.proximityDataFetched = res;
+      for(let i of this.proximityDataFetched){
+        this.chartData.push(i.count);
+      }
+    })
+  }
+
+  changeGran(gran){
+    this.flag = false;
+    this.granularity = gran.value;
+    this.chartService.setGranularity(this.granularity);
+    if(this.granularity == "Daily" || this.granularity == "Daily Till Now"){
+      this.pattern = "Last Week"
+      this.chartLabels = [ "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+      this.chartLabels2 = [ "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    }
+    
+    this.proximityChartUpdate();
   }
 
   ngOnInit() {
 
-    this.selectedValue = "Last Week";
 
-    this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorPattern?pattern=this%20week')
+    this.flag = true;
+    this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorPattern?pattern=this week')
     .subscribe(res => {
       this.proximityDataFetched = res;
       this.proximityChartUpdate();
