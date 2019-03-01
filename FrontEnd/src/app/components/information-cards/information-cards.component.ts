@@ -1,9 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable, interval} from 'rxjs';
-
-// import 'rxjs/add/operator/startWith';
-// import 'rxjs/add/operator/switchMap';
-import { RealTimeUpdateService } from 'src/app/services/real-time-update.service';
+import { timer } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -13,10 +10,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class InformationCardsComponent implements OnInit {
   @Input() products$: Observable<any>;
-  countUpdt : any;
-  countUpdt1 : any;
-  countUpdt2 : any;
-  delay = interval(1000);
+  temp : any;
+  currentVisitor : any;
+  totalAmount : any;
+  totalVisitors : any;
+  totalCheckouts : any;
   constructor(private http : HttpClient) { 
     
   }
@@ -25,13 +23,30 @@ export class InformationCardsComponent implements OnInit {
   ngOnInit() {
     
     Observable
-    interval(1000).subscribe(() => {
+    timer(500, 1000 * 30).subscribe(() => {
       this.http.get('http://localhost:4004/api/v0/meraki/scanning/currentVisitorCount')
       .subscribe(res => {
-        this.countUpdt = res;
-        this.countUpdt1 = this.countUpdt[0].visitor_count;
+        this.temp = res;
+        this.currentVisitor = this.temp[0].visitor_count;
       })
-    })
-  }
 
+      this.http.get('http://localhost:4004/api/v0/meraki/posSimulator/totalAmount')
+      .subscribe(res => {
+        this.temp = res;
+        this.totalAmount = this.temp[0].sum;
+      })
+
+    this.http.get('http://localhost:4004/api/v0/meraki/posSimulator/totalTransactions')
+      .subscribe(res => {
+        this.temp = res;
+        this.totalCheckouts = this.temp[0].count;
+      })
+
+      this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorCountByDate')
+      .subscribe(res => {
+        this.temp = res;
+        this.totalVisitors = this.temp[0].count;
+      })
+  });
+  }
 }

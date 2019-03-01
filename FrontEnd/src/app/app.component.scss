@@ -27,21 +27,74 @@ side-nav {
   justify-content: center;
 
   .info-center {
-    height: 20vw;
+    height: fit-content;
     border-radius: 1vw;
     padding: 2vw;
     box-shadow: 0px 0px 20px rgba(128, 128, 128, 0.904);
     flex-grow: 1;
 
     p {
-      color: rgb(77, 77, 77);
-      font-size: 2vw;
+      color: rgb(112, 112, 112);
+      font-size: 1.1vw;
       font-weight: 700;
+    }
+
+    .wait-time-wrapper{
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 50px;
+
+      .card{
+        flex-grow: 1;
+        height: 3vw;
+        width: fit-content;
+        padding: 30px;
+        border-radius: 0.5vw;
+        margin-inline-end: 2vw;
+        text-align: center;
+        justify-content: center;
+        color: white;
+        border: none;
+        box-shadow: 0px 0px 30px rgba(59, 59, 59, 0.24);
+
+        span{
+          font-size: 0.93vw;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+    .latest-pos-sales{
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .sales-data{
+        flex-grow: 1;
+        width: fit-content;
+        padding: 30px;
+        border-radius: 0.5vw;
+        margin-inline-end: 2vw;
+        text-align: center;
+        justify-content: center;
+        color: rgb(82, 79, 79);
+        // border: 2px solid rgba(37, 41, 46, 0.521);
+        box-shadow: 0px 0px 20px rgba(59, 59, 59, 0.336);
+      
+
+      span{
+        font-size: 1.1vw;
+        font-weight: 500;
+        line-height: 10px;
+      }
     }
   }
 
   donut-chart {
-    flex-basis: 3vw;
     height: 100px;
   }
 

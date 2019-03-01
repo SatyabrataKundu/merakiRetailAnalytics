@@ -26,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartdataService } from './services/chartdata.service';
 
 
 @NgModule({
@@ -55,7 +56,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatNativeDateModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [ChartdataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,30 +6,27 @@
 
   <div class="chart-wrapper">
     <div class="info-center">
-      <p>Current POS Data</p>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Transaction ID</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
+      <p>Checkout Wait Time</p>
+      <div class="wait-time-wrapper">
+        <div class="card" style="background-color:rgb(230, 214, 79);"><span>POS 1 : 12 mins</span></div>
+        <div class="card" style="background-color:rgb(137, 163, 41);"><span>POS 2 : 10 mins</span></div>
+        <div class="card" style="background-color:rgb(218, 208, 80);"><span>POS 3 : 12 mins</span></div>
+        <div class="card" style="background-color:rgb(172, 71, 71); "><span>POS 4 : 15 mins</span></div>
+        <div class="card" style="background-color:rgb(172, 71, 71); "><span>POS 5 : 17 mins</span></div>
+      </div>
 
-        </tbody>
-      </table>
 
+      <p>Latest POS Sales Amount</p>
+      <div class="latest-pos-sales">
+        <div class="sales-data"><span>12,000</span></div>
+        <div class="sales-data"><span>2,000</span></div>
+        <div class="sales-data"><span>1,500</span></div>
+        <div class="sales-data"><span>1,500</span></div>
+        <div class="sales-data"><span>1,567</span></div>
+      </div>  
     </div>
-
     <donut-chart></donut-chart>
+    
   </div>
 
 <div class="bar-chart-wrapper">
