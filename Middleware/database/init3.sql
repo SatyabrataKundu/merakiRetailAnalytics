@@ -3,7 +3,8 @@ CREATE SEQUENCE meraki.camera_detections_key_seq;
 CREATE TABLE meraki.camera_detections
 (
     unique_camera_detection_key integer NOT NULL DEFAULT nextval('meraki.camera_detections_key_seq'::regclass),
-    entrances integer,
+    person_oid integer,
+    zoneId integer,
     datetime character varying COLLATE pg_catalog."default",
     dateformat_date character varying(12) COLLATE pg_catalog."default",
 	dateformat_year integer DEFAULT 2019,

@@ -128,4 +128,144 @@ function _performDBInsert(dbInsertCamData) {
     });
 }
 
+
+router.post("/clients", function(req, res){
+
+
+    var zoneId = req.query.zoneId;
+    var timeRange = req.query.timeRange || "last week";
+   
+
+    console.log('Value of zone id is ',zoneId);
+    console.log('value of time range is ',timeRange);
+    
+    if(timeRange === "today"){
+        let datetime = new Date();
+        let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
+
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_hour"
+        +" from meraki.camera_detections "
+        +" where zoneid="+zoneId
+        +" and dateformat_date='"+formattedDateString
+        +"' group by dateformat_hour order by dateformat_hour";
+
+        db.any(selectDataQuery)
+        .then(function (result) {
+            console.log("db select success", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+
+    }
+    else if (timeRange === "yesterday"){
+        let datetime = new Date();
+        datetime.setDate(datetime.getDate() - 1);
+        let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
+
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_hour"
+        +" from meraki.camera_detections "
+        +" where zoneid="+zoneId
+        +" and dateformat_date='"+formattedDateString
+        +"' group by dateformat_hour order by dateformat_hour";
+        db.any(selectDataQuery)
+        .then(function (result) {
+            console.log("db select success", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+
+    }
+    else if (timeRange === "this week"){
+        let datetime = new Date();
+        let weekValue = dateFormat(datetime, "W");
+
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_date"
+        +" from meraki.camera_detections "
+        +" where zoneid="+zoneId
+        +" and dateformat_week="+weekValue
+        +" group by dateformat_date order by dateformat_date";
+        db.any(selectDataQuery)
+        .then(function (result) {
+            console.log("db select success", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+
+    }
+    else if (timeRange === "last week"){
+        let datetime = new Date();
+        let weekValue = dateFormat(datetime, "W") -1;
+
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_date"
+        +" from meraki.camera_detections "
+        +" where zoneid="+zoneId
+        +" and dateformat_week="+weekValue
+        +" group by dateformat_date order by dateformat_date";
+        db.any(selectDataQuery)
+        .then(function (result) {
+            console.log("db select success", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+
+    }
+    else if (timeRange === "this month"){
+        let datetime = new Date();
+        let monthValue = dateFormat(datetime, "m");
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_week"
+        +" from meraki.camera_detections "
+        +" where zoneid="+zoneId
+        +" and dateformat_month="+monthValue
+        +" group by dateformat_week order by dateformat_week";
+        db.any(selectDataQuery)
+        .then(function (result) {
+            console.log("db select success", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+
+    }
+    else if (timeRange === "last month"){
+        let datetime = new Date();
+        let monthValue = dateFormat(datetime, "m") -1;
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_week"
+        +" from meraki.camera_detections "
+        +" where zoneid="+zoneId
+        +" and dateformat_month="+monthValue
+        +" group by dateformat_week order by dateformat_week";
+        db.any(selectDataQuery)
+        .then(function (result) {
+            console.log("db select success", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+
+    }
+})
+
+
 module.exports = router;

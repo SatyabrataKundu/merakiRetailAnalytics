@@ -79,9 +79,6 @@ var job = function AccessPointClientsJob() {
                             reject(err);
                         });
                 });
-
-
-
             });
         });
     });
