@@ -97,7 +97,7 @@ router.get("/visitorPattern", function (req, res) {
     } else if (pattern == 'last week') {
         let weekValue = dateFormat(datetime, "W");
         weekValue = weekValue - 1;
-        db.any("select count (distinct (client_mac_address)), dateformat_day from meraki.scanning_ap_data where dateformat_week =" + weekValue + " group by dateformat_day")
+        db.any("select count (distnct (client_mac_address)), dateformat_date as date from meraki.scanning_ap_data where dateformat_week =" + weekValue + " group by dateformat_date")
             .then(function (result) {
                 console.log("db select success for date ", result);
                 res.status(200).send(result);
