@@ -268,4 +268,50 @@ router.post("/clients", function(req, res){
 })
 
 
+router.get("/zones", function (req, res) {
+
+    var responseObject = {};
+  
+    var zoneList = [];
+
+    let zoneObject1 = {};
+    zoneObject1.zoneId =config.get("simulator.merakicam.entryZoneId");
+    zoneObject1.zoneName = "Entry"
+    zoneList.push(zoneObject1);
+    let zoneObject2 = {};
+    zoneObject2.zoneId =config.get("simulator.merakicam.checkoutZoneId");
+    zoneObject2.zoneName = "Checkout"
+    zoneList.push(zoneObject2);
+    let zoneObject3 = {};
+    zoneObject3.zoneId =config.get("simulator.merakicam.kidsZoneId");
+    zoneObject3.zoneName = "Kids"
+    zoneList.push(zoneObject3);
+    let zoneObject4 = {};
+    zoneObject4.zoneId =config.get("simulator.merakicam.groceryZoneId");
+    zoneObject4.zoneName = "Grocery"
+    zoneList.push(zoneObject4);
+    let zoneObject5 = {};
+    zoneObject5.zoneId =config.get("simulator.merakicam.apparelZoneId");
+    zoneObject5.zoneName = "Apparel"
+    zoneList.push(zoneObject5);
+    let zoneObject6 = {};
+    zoneObject6.zoneId =config.get("simulator.merakicam.furnitureZoneId");
+    zoneObject6.zoneName = "Furniture"
+    zoneList.push(zoneObject6);
+    let zoneObject7 = {};
+    zoneObject7.zoneId =config.get("simulator.merakicam.electronicsZoneId");
+    zoneObject7.zoneName = "Electronics"
+    zoneList.push(zoneObject7);
+    let zoneObject8 = {};
+    zoneObject8.zoneId =config.get("simulator.merakicam.exitZoneId");
+    zoneObject8.zoneName = "Exit"
+    zoneList.push(zoneObject8);
+
+    responseObject.zoneList = zoneList;
+
+    res.status(200).send(responseObject);
+});
+
+
+
 module.exports = router;
