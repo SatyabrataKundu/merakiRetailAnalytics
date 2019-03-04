@@ -132,8 +132,8 @@ function _performDBInsert(dbInsertCamData) {
 router.post("/clients", function(req, res){
 
 
-    var zoneId = req.query.zoneId;
-    var timeRange = req.query.timeRange || "last week";
+    var zoneId = req.body.zoneId;
+    var timeRange = req.body.timeRange || "today";
    
 
     console.log('Value of zone id is ',zoneId);
