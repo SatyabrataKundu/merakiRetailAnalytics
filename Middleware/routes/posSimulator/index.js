@@ -31,7 +31,7 @@ router.get("/generatePOSdata", function (req, res) {
 function _performPosUrlPost() {
 
     var genNoOfItems = rn.generator({
-        min: 2,
+        min: 1,
         max: 10,
         integer: true
     })
@@ -45,9 +45,15 @@ function _performPosUrlPost() {
         max: 5,
         integer: true
     })
+    var genNumberOfTransactions = rn.generator({
+        min: 0,
+        max: 10,
+        integer: true
+    })
     var reqPostParams = {};
     let arrayOfData = [];
-    for (var i = 0; i < genNoOfItems(); i++) {
+    var noOfTransaction = genNumberOfTransactions();
+    for (var i = 0; i < noOfTransaction; i++) {
         let posObject = {};
 
         posObject.randomNumberOfItems = genNoOfItems();
