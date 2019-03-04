@@ -5,11 +5,12 @@
 #chart-label{
     font-size: 1vw;
     font-weight: 700;
-    background: rgb(112,140,50);
-    background: linear-gradient(90deg, rgba(112,140,50,1) 0%, rgba(174,205,83,1) 100%);
+    background: rgb(255, 255, 255);
+    border: 3px solid rgb(171, 202, 85);
+    // background: linear-gradient(90deg, rgba(112,140,50,1) 0%, rgba(174,205,83,1) 100%);
     padding: 0.6vw;
-    color: white;
+    color: rgb(143, 143, 143);
     border-radius: 5px;
-    box-shadow: 0px 10px 50px rgba(112, 112, 112, 0.432);
+    box-shadow: 0px 10px 50px rgba(112, 112, 112, 0.116);
     width: fit-content;
 }
