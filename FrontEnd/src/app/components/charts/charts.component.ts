@@ -30,7 +30,7 @@ export class ChartsComponent implements OnInit {
   proximityChartData = [];
   scanningChartData = [];
 
-  public chartType: string = "bar";
+  public chartType: string = "line";
   public chartLabels: Array<any> = [];
   public chartData: Array<number> = [];
   public colorOptions: Array<any> = [
@@ -54,7 +54,7 @@ export class ChartsComponent implements OnInit {
             drawOnChartArea: true
           },
           ticks: {
-            maxTicksLimit: 3
+            maxTicksLimit: 4
           }
         }
       ]

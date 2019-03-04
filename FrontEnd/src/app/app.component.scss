@@ -31,7 +31,7 @@ side-nav {
     border-radius: 1vw;
     padding: 2vw;
     padding-right: 0vw;
-    box-shadow: 0px 0px 20px rgba(100, 100, 100, 0.377);
+    // box-shadow: 0px 0px 20px rgba(100, 100, 100, 0.377);
     flex-grow: 1;
     width: 100%;
     margin-right: 1.5vw;
@@ -132,7 +132,9 @@ side-nav {
 }
 
 .donut-legend{
-width: 30%;
+  width: 30%;
+  margin-left: 15vw;
+  margin-top: 2vw;
   ul{
     // position: absolute;
     li{
