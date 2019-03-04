@@ -8,9 +8,9 @@
       },
       "constants": {
         "expressPort": 4004,
-        "apclientsJobTimer" : "*/5 * * * *",
-        "posJobTimer" : "*/5 * * * *",
-        "mvCameraJobTimer" : "*/2 * * * *"
+        "apclientsJobTimer" : "*/1 * * * *",
+        "posJobTimer" : "*/1 * * * *",
+        "mvCameraJobTimer" : "*/1 * * * *"
       }
     },
     "simulator": {
