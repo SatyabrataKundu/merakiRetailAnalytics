@@ -31,15 +31,7 @@ export class ChartsComponent implements OnInit {
   scanningChartData=[];
 
   public chartType: string = "bar";
-  public chartLabels: Array<string> = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
-  ];
+  public chartLabels: Array<any>=[];
   public chartData: Array<number> = [];
   public colorOptions: Array<any> = [
     {
@@ -109,21 +101,25 @@ export class ChartsComponent implements OnInit {
   };
 
   proximityChartUpdate(){
-
-    this.chartData=[];
     
     if(this.flag){
     this.chartData=[];
+    this.chartLabels=[];
     for(let i of this.proximityDataFetched){
       this.chartData.push(i.count);
+      this.chartLabels.push(i.date);
+
     }
     }
 
     this.chartService.getChartData()
     .subscribe(res => {
+      this.chartData = [];
+      this.chartLabels = [];
       this.proximityDataFetched = res;
       for(let i of this.proximityDataFetched){
         this.chartData.push(i.count);
+        this.chartLabels.push(i.date);
       }
     })
   }
@@ -131,12 +127,43 @@ export class ChartsComponent implements OnInit {
   changeGran(gran){
     this.flag = false;
     this.granularity = gran.value;
+
     this.chartService.setGranularity(this.granularity);
+
     if(this.granularity == "Daily" || this.granularity == "Daily Till Now"){
-      this.pattern = "Last Week"
-      this.chartLabels = [ "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-      this.chartLabels2 = [ "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+      this.chartLabels = [];
+      this.chartLabels2 = [];
     }
+
+    else if(this.granularity == "Hourly" || this.granularity == "Hourly Till Now"){
+      this.chartLabels = 
+      [ "00:00",
+        "01:00",
+        "02:00",
+        "03:00",
+        "04:00",
+        "05:00",
+        "06:00",
+        "07:00",
+        "08:00",
+        "09:00",
+        "10:00",
+        "11:00",
+        "12:00",
+        "13:00",
+        "14:00",
+        "15:00",
+        "16:00",
+        "17:00",
+        "18:00",
+        "19:00",
+        "20:00",
+        "21:00",
+        "22:00",
+        "23:00",
+        "23:59",];
+      this.chartLabels2 = this.chartLabels;
+      }
     
     this.proximityChartUpdate();
   }

@@ -36,6 +36,10 @@ export class DonutChartComponent implements OnInit {
     
     hover:{
       animationDuration: 600,
+    },
+
+    tooltips:{
+      enabled: false
     }
   }
   

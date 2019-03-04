@@ -32,6 +32,8 @@ side-nav {
     padding: 2vw;
     box-shadow: 0px 0px 20px rgba(128, 128, 128, 0.904);
     flex-grow: 1;
+    width: 100%;
+    margin-right: 1.5vw;
 
     p {
       color: rgb(112, 112, 112);
@@ -47,7 +49,7 @@ side-nav {
       margin-bottom: 50px;
 
       .card{
-        flex-grow: 1;
+        flex-grow: 3;
         height: 3vw;
         width: fit-content;
         padding: 30px;

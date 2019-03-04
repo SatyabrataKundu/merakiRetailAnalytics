@@ -1,17 +1,18 @@
 <div style="display: flex; justify-content: space-between;">
 
   <div>
+    
+
+
+    <!-- <p style="font-size: 15px;">Granularity : <strong style="color: rgb(182, 65, 56);">{{selectedValue}}</strong>
+    </p> -->
+
+    <p id="chart-label">Visitor Patterns</p>
     <mat-form-field>
-      <mat-select placeholder="Choose Period" [(ngModel)]="selectedValue" name="item" (selectionChange)=changeGran($event)>
-        <mat-option *ngFor="let i of period" [value]="i.value">{{i.viewValue}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-
-    <p style="font-size: 15px;">Granularity : <strong style="color: rgb(182, 65, 56);">{{selectedValue}}</strong>
-    </p>
-
-    <p id="chart-label">Visitor Count By Proximity</p>
+        <mat-select placeholder="Choose Period" [(ngModel)]="selectedValue" name="item" (selectionChange)=changeGran($event)>
+          <mat-option *ngFor="let i of period" [value]="i.value">{{i.viewValue}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     <div class="chart-container">
       <canvas *ngIf="chartData" baseChart [chartType]="chartType" [data]="chartData" [labels]="chartLabels" [options]="chartOptions"
         [colors]="colorOptions" style="margin-top: 3em;">
@@ -24,15 +25,25 @@
 
 
   <div>
-    <div style="height:105px;">
+    
 
-    </div>
+    <p id="chart-label">Zone Analysis</p>
+    <mat-form-field style="margin-right:50px;">
+    <mat-select placeholder="Zone Name" [(ngModel)]="selectedValue" name="item" (selectionChange)=changeGran($event)>
+        <mat-option *ngFor="let i of period" [value]="i.value">{{i.viewValue}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <p id="chart-label">Visitor Count By Camera</p>
+    <mat-form-field>
+    <mat-select placeholder="Choose Period" [(ngModel)]="selectedValue" name="item" (selectionChange)=changeGran($event)>
+        <mat-option *ngFor="let i of period" [value]="i.value">{{i.viewValue}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div class="chart-container" id="last-container">
       <canvas *ngIf="chartData" baseChart [chartType]="chartType2" [data]="chartData2" [labels]="chartLabels2"
         [options]="chartOptions2" [colors]="colorOptions2" style="margin-top: 3em;">
       </canvas>
     </div>
+
   </div>
-</div>

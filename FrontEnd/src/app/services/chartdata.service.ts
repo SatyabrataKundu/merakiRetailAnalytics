@@ -12,7 +12,23 @@ export class ChartdataService {
   constructor(private http: HttpClient) { }
 
   setGranularity(granularity){
-    this.granularity = granularity;
+    if(granularity == "Hourly Till Now")
+    this.granularity = "today";
+    
+    else if(granularity == "Hourly")
+    this.granularity = "yesterday";
+    
+    else if(granularity == "Daily Till Now")
+    this.granularity = "this week";
+    
+    else if(granularity == "Daily")
+    this.granularity = "last week";
+    
+    else if(granularity == "Weekly Till Now")
+    this.granularity = "this month";
+    
+    else
+    this.granularity="last month";
   }
 
   getChartData(){

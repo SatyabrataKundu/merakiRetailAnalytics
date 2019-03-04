@@ -16,7 +16,7 @@
       </div>
 
 
-      <p>Latest POS Sales Amount</p>
+      <!-- <p>Latest POS Sales Amount</p>
       <div class="latest-pos-sales">
         <div class="sales-data"><span>12,000</span></div>
         <div class="sales-data"><span>2,000</span></div>
@@ -24,15 +24,26 @@
         <div class="sales-data"><span>1,500</span></div>
         <div class="sales-data"><span>1,567</span></div>
       </div>  
-    </div>
-    <donut-chart></donut-chart>
-    
+    </div> -->
+
+   
+  </div>
   </div>
 
+  <div class="donut-chart" style="display:flex; margin-top: 3vw; justify-content: space-between">
+    <div style="width:45vw;">
+        <donut-chart></donut-chart>
+    </div>
+      
+    <div style="width:45vw;">
+        <donut-chart></donut-chart>
+    </div>
+  </div>
+ 
 <div class="bar-chart-wrapper">
     <charts></charts>
 </div>
-</div>
+
 
 
 <router-outlet></router-outlet>
