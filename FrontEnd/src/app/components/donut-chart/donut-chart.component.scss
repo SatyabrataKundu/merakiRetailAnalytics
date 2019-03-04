@@ -1,12 +1,12 @@
 canvas{
-    -webkit-animation: rotation 10s infinite linear;
+    -webkit-animation: rotation 50s infinite linear;
 
     @-webkit-keyframes rotation {
 		from {
-				-webkit-transform: rotate(0deg);
+				-webkit-transform: rotate(359deg);
 		}
 		to {
-				-webkit-transform: rotate(359deg);
+				-webkit-transform: rotate(0deg);
 		}
     }
 
