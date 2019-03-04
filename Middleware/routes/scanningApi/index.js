@@ -139,7 +139,17 @@ router.get("/visitorPattern", function (req, res) {
 });
 
 router.get("/currentVisitorCount", function (req, res) {
-    db.any("SELECT visitor_count FROM meraki.scanning_visitorinfo ORDER BY scanning_visitorinfo_uniq_key DESC LIMIT 1")
+
+    var datetime = new Date();
+    let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
+    let hourValue = dateFormat(datetime, "H");
+
+    var selectQuery = "SELECT COUNT(DISTINCT(person_oid)) "
+    +" from meraki.camera_detections where "
+    +" dateformat_date = '"+formattedDateString+"' and dateformat_hour="+hourValue 
+    +" and dateformat_minute= (select dateformat_minute from meraki.camera_detections "
+    +" order by unique_camera_detection_key desc LIMIT 1 ) 	";
+    db.any(selectQuery)
         .then(function (result) {
             console.log("db select success for date ", result);
             res.status(200).send(result);

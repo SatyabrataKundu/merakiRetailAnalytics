@@ -268,6 +268,8 @@ router.post("/clients", function(req, res){
 })
 
 
+
+
 router.get("/zones", function (req, res) {
 
     var responseObject = {};
@@ -312,6 +314,28 @@ router.get("/zones", function (req, res) {
     res.status(200).send(responseObject);
 });
 
+router.get("/currentVisitorsPerZone", function (req, res) {
+
+    var datetime = new Date();
+    let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
+    let hourValue = dateFormat(datetime, "H");
+
+    var selectQuery = "SELECT COUNT(DISTINCT(person_oid)), zoneid "
+    +" from meraki.camera_detections where "
+    +" dateformat_date = '"+formattedDateString+"' and dateformat_hour="+hourValue 
+    +" and dateformat_minute= (select dateformat_minute from meraki.camera_detections "
+    +" order by unique_camera_detection_key desc LIMIT 1 ) 	group by zoneid";
+    db.any(selectQuery)
+        .then(function (result) {
+            console.log("db select success for date ", result);
+            res.status(200).send(result);
+
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
+});
 
 
 module.exports = router;
