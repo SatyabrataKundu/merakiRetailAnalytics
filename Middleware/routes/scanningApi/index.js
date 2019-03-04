@@ -57,7 +57,7 @@ router.get("/visitorPattern", function (req, res) {
     if (pattern == 'today') {
         var datetime = new Date();
         let date = dateFormat(datetime, "yyyy-mm-dd");
-        db.any("select count (distinct (client_mac_address)), dateformat_hour from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
+        db.any("select count (distinct (client_mac_address)), dateformat_hour  as date from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
             .then(function (result) {
                 console.log("db select success for date ", result);
                 res.status(200).send(result);
@@ -72,7 +72,7 @@ router.get("/visitorPattern", function (req, res) {
         datetime.setDate(datetime.getDate() - 1);
         let date = dateFormat(datetime, "yyyy-mm-dd");
 
-        db.any("select count (distinct (client_mac_address)), dateformat_hour from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
+        db.any("select count (distinct (client_mac_address)), dateformat_hour as date from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
             .then(function (result) {
                 console.log("db select success for date ", result);
                 res.status(200).send(result);
