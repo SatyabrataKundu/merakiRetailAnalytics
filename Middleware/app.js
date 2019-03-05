@@ -14,6 +14,7 @@ var cronJobForMerakiCamData = require("./jobs/MVCameraDataJob");
 var scanningsimulator = require("./routes/scanningsimulator/index");
 var cronJobForPosData = require("./jobs/PosDataGenerationJob");
 var possimulator = require("./routes/posSimulator/index");
+var checkout = require("./routes/checkout/index");
 
 cronJobForAPClients.clientsJob();
 cronJobForPosData.posJob();
@@ -29,6 +30,7 @@ app.use("/api/v0/meraki/scanning", scanningapi);
 app.use("/api/v0/meraki/scanningsimulator", scanningsimulator);
 app.use("/api/v0/meraki/posSimulator", possimulator);
 app.use("/api/v0/meraki/camera",merakicamera);
+app.use("/api/v0/meraki/checkout",checkout);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
