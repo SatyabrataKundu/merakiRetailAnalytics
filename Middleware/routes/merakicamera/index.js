@@ -143,7 +143,7 @@ router.post("/clients", function(req, res){
         let datetime = new Date();
         let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
 
-        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_hour"
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_hour as timeRange"
         +" from meraki.camera_detections "
         +" where zoneid="+zoneId
         +" and dateformat_date='"+formattedDateString
@@ -166,7 +166,7 @@ router.post("/clients", function(req, res){
         datetime.setDate(datetime.getDate() - 1);
         let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
 
-        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_hour"
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_hour as timeRange"
         +" from meraki.camera_detections "
         +" where zoneid="+zoneId
         +" and dateformat_date='"+formattedDateString
@@ -187,7 +187,7 @@ router.post("/clients", function(req, res){
         let datetime = new Date();
         let weekValue = dateFormat(datetime, "W");
 
-        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_date"
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_date as timeRange"
         +" from meraki.camera_detections "
         +" where zoneid="+zoneId
         +" and dateformat_week="+weekValue
@@ -208,7 +208,7 @@ router.post("/clients", function(req, res){
         let datetime = new Date();
         let weekValue = dateFormat(datetime, "W") -1;
 
-        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_date"
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_date as timeRange"
         +" from meraki.camera_detections "
         +" where zoneid="+zoneId
         +" and dateformat_week="+weekValue
@@ -228,7 +228,7 @@ router.post("/clients", function(req, res){
     else if (timeRange === "this month"){
         let datetime = new Date();
         let monthValue = dateFormat(datetime, "m");
-        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_week"
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_week as timeRange"
         +" from meraki.camera_detections "
         +" where zoneid="+zoneId
         +" and dateformat_month="+monthValue
@@ -248,7 +248,7 @@ router.post("/clients", function(req, res){
     else if (timeRange === "last month"){
         let datetime = new Date();
         let monthValue = dateFormat(datetime, "m") -1;
-        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_week"
+        let selectDataQuery = "select count(person_oid) as detected_clients , dateformat_week as timeRange"
         +" from meraki.camera_detections "
         +" where zoneid="+zoneId
         +" and dateformat_month="+monthValue
