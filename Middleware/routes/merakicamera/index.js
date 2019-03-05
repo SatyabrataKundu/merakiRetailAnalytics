@@ -44,6 +44,13 @@ router.get("/", function (req, res) {
             integer: true
         })
 
+        
+        var gen3 = rn.generator({
+            min: 1,
+            max: 3,
+            integer: true
+        })
+
         var datetime = new Date();
         let ts = datetime.getTime();
         let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
@@ -65,11 +72,11 @@ router.get("/", function (req, res) {
         dbInsertCamData.dateFormat_minute = minuteValue;
 
         var numberOfPeopleDetected = 0;
-        if (zoneId === config.get("simulator.merakicam.entryZoneId") || zoneId === config.get("simulator.merakicam.exitZoneId")) {
+        if (zoneId === 1 || zoneId === 8) {
             numberOfPeopleDetected = gen2();
         }
         else {
-            numberOfPeopleDetected = gen1();
+            numberOfPeopleDetected = gen3();
         }
         for (i = 0; i < numberOfPeopleDetected; i++) {
             var genOID = rn.generator({
