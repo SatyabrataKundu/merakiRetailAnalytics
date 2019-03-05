@@ -292,7 +292,7 @@ router.get("/zones", function (req, res) {
     var responseObject = {};
   
     var zoneList = [];
-    var selectQuery = "select zone_id as zoneId, zone_name as zoneName from meraki.meraki_zones";
+    var selectQuery = "select zone_id as zoneId, zone_name as zoneName from meraki.meraki_zones where zone_name not like 'Checkout%'";
     db.any(selectQuery)
     .then(function (result) {
         console.log("db select success for date ", result);
@@ -311,11 +311,12 @@ router.get("/currentVisitorsPerZone", function (req, res) {
     let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
     let hourValue = dateFormat(datetime, "H");
 
-    var selectQuery = "SELECT COUNT(DISTINCT(person_oid)), zoneid "
-    +" from meraki.camera_detections where "
-    +" dateformat_date = '"+formattedDateString+"' and dateformat_hour="+hourValue 
-    +" and dateformat_minute= (select dateformat_minute from meraki.camera_detections "
-    +" order by unique_camera_detection_key desc LIMIT 1 ) 	group by zoneid";
+    var selectQuery = "SELECT COUNT(DISTINCT(cam.person_oid)), cam.zoneid , zones.zone_name as zoneName"
+    +" from meraki.camera_detections cam, meraki.meraki_zones zones where "
+    +" cam.zoneid = zones.zone_id and  "
+    +" cam.dateformat_date = '"+formattedDateString+"' and cam.dateformat_hour="+hourValue 
+    +" and cam.dateformat_minute= (select dateformat_minute from meraki.camera_detections "
+    +" order by unique_camera_detection_key desc LIMIT 1 ) 	group by cam.zoneid, zones.zone_name";
     db.any(selectQuery)
         .then(function (result) {
             console.log("db select success for date ", result);
