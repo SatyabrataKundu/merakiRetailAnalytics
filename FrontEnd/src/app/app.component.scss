@@ -37,7 +37,7 @@ side-nav {
     margin-right: 1.5vw;
 
     p {
-      color: rgb(112, 112, 112);
+      color: rgba(44, 43, 43, 0.479);
       font-size: 1.1vw;
       font-weight: 700;
     }
@@ -58,9 +58,10 @@ side-nav {
         margin-inline-end: 2vw;
         text-align: center;
         justify-content: center;
-        color: white;
-        border: none;
-        box-shadow: 0px 0px 30px rgba(59, 59, 59, 0.24);
+        color: rgb(66, 66, 66);
+        background:rgb(255, 255, 255);
+        //border: 2px dotted rgb(177, 177, 177);
+        box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.212);
 
         span{
           font-size: 0.93vw;
