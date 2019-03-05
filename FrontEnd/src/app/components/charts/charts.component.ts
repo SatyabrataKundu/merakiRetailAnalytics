@@ -20,6 +20,7 @@ export class ChartsComponent implements OnInit {
   zoneGranularity:any;
   zoneDataFetched: any;
   zoneLabels: any;
+  zoneChartFlag: boolean = false;
   selectedValue3: any;
 
   period = [
@@ -123,15 +124,19 @@ export class ChartsComponent implements OnInit {
   }
 
   zoneAnalysisChartUpdate(){
-    this.chartService.getZoneChartData()
-    .subscribe(res => {
-      this.chartData2=[];
-      this.zoneDataFetched = res;
-      for(let i of this.zoneDataFetched){
-        this.chartData2.push(i["detected_clients"]);
-      }
-    })
+
+    
+      this.chartService.getZoneChartData()
+        .subscribe(res => {
+          this.chartData2 = [];
+          this.zoneDataFetched = res;
+          for (let i of this.zoneDataFetched) {
+            this.chartData2.push(i["detected_clients"]);
+          }
+        })
+
     this.setZoneChartData(this.chartData2);
+
   }
 
   changeZone(zone){
