@@ -20,77 +20,87 @@ router.get("/", function (req, res) {
     var responseObject = {};
     var dataList = [];
     var zoneList = [];
-    zoneList.push(config.get("simulator.merakicam.entryZoneId"));
-    zoneList.push(config.get("simulator.merakicam.checkoutZoneId"));
-    zoneList.push(config.get("simulator.merakicam.kidsZoneId"));
-    zoneList.push(config.get("simulator.merakicam.groceryZoneId"));
-    zoneList.push(config.get("simulator.merakicam.apparelZoneId"));
-    zoneList.push(config.get("simulator.merakicam.furnitureZoneId"));
-    zoneList.push(config.get("simulator.merakicam.electronicsZoneId"));
-    zoneList.push(config.get("simulator.merakicam.exitZoneId"));
 
 
-    zoneList.forEach(function (zoneId) {
-        //Generate number of clients. 
-        var gen1 = rn.generator({
-            min: 0,
-            max: 2,
-            integer: true
-        })
+    var selectQuery = "select zone_id, zone_name from meraki.meraki_zones";
+    db.any(selectQuery)
+    .then(function (result) {
+        console.log("db select success for date ", result);
+        result.forEach(function (zoneObject) {
 
-        var gen2 = rn.generator({
-            min: 0,
-            max: 10,
-            integer: true
-        })
-
-        
-        var gen3 = rn.generator({
-            min: 1,
-            max: 3,
-            integer: true
-        })
-
-        var datetime = new Date();
-        let ts = datetime.getTime();
-        let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
-        let yearValue = dateFormat(datetime, "yyyy");
-        let monthValue = dateFormat(datetime, "m");
-        let weekValue = dateFormat(datetime, "W");
-        let dayValue = dateFormat(datetime, "d");
-        let hourValue = dateFormat(datetime, "H");
-        let minuteValue = dateFormat(datetime, "M");
-
-        let dbInsertCamData = {};
-        dbInsertCamData.ts = ts;
-        dbInsertCamData.dateFormat_date = formattedDateString;
-        dbInsertCamData.dateFormat_year = yearValue;
-        dbInsertCamData.dateFormat_month = monthValue;
-        dbInsertCamData.dateFormat_week = weekValue;
-        dbInsertCamData.dateFormat_day = dayValue;
-        dbInsertCamData.dateFormat_hour = hourValue;
-        dbInsertCamData.dateFormat_minute = minuteValue;
-
-        var numberOfPeopleDetected = 0;
-        if (zoneId === 1 || zoneId === 8) {
-            numberOfPeopleDetected = gen2();
-        }
-        else {
-            numberOfPeopleDetected = gen3();
-        }
-        for (i = 0; i < numberOfPeopleDetected; i++) {
-            var genOID = rn.generator({
-                min: 1000,
-                max: 9999,
+            console.log("zoneobject ",zoneObject)
+            //Generate number of clients. 
+            var gen1 = rn.generator({
+                min: 0,
+                max: 2,
                 integer: true
             })
-            dbInsertCamData.personOID = genOID();
-            dbInsertCamData.zoneId = zoneId;
+    
+            var gen2 = rn.generator({
+                min: 0,
+                max: 10,
+                integer: true
+            })
+    
+            
+            var gen3 = rn.generator({
+                min: 1,
+                max: 3,
+                integer: true
+            })
+    
+            var datetime = new Date();
+            let ts = datetime.getTime();
+            let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
+            let yearValue = dateFormat(datetime, "yyyy");
+            let monthValue = dateFormat(datetime, "m");
+            let weekValue = dateFormat(datetime, "W");
+            let dayValue = dateFormat(datetime, "d");
+            let hourValue = dateFormat(datetime, "H");
+            let minuteValue = dateFormat(datetime, "M");
+    
+            let dbInsertCamData = {};
+            dbInsertCamData.ts = ts;
+            dbInsertCamData.dateFormat_date = formattedDateString;
+            dbInsertCamData.dateFormat_year = yearValue;
+            dbInsertCamData.dateFormat_month = monthValue;
+            dbInsertCamData.dateFormat_week = weekValue;
+            dbInsertCamData.dateFormat_day = dayValue;
+            dbInsertCamData.dateFormat_hour = hourValue;
+            dbInsertCamData.dateFormat_minute = minuteValue;
+    
+            var numberOfPeopleDetected = 0;
+            if (zoneObject.zone_id === 1 || zoneObject.zone_id === 12) {
+                numberOfPeopleDetected = gen2();
+            }
+            else if (zoneObject.zone_id ===2 || zoneObject.zone_id === 3 || zoneObject.zone_id ===4 || zoneObject.zone_id === 5 || zoneObject.zone_id ===6) {
+                numberOfPeopleDetected = gen3();
+            }
+            else{
+                numberOfPeopleDetected = gen1();
+            }
+            for (i = 0; i < numberOfPeopleDetected; i++) {
+                var genOID = rn.generator({
+                    min: 1000,
+                    max: 9999,
+                    integer: true
+                })
+                dbInsertCamData.personOID = genOID();
+                dbInsertCamData.zoneId = zoneObject.zone_id;
+    
+                 _performDBInsert(dbInsertCamData);
+                dataList.push(dbInsertCamData);
+            }
+        });
 
-             _performDBInsert(dbInsertCamData);
-            dataList.push(dbInsertCamData);
-        }
+    })
+    .catch(function (err) {
+        console.log("not able to get connection " + err);
+      
     });
+
+
+ 
 
     responseObject.data = dataList;
     res.status(200).send(responseObject);
