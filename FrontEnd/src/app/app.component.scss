@@ -54,6 +54,8 @@ side-nav {
         height: 3vw;
         width: fit-content;
         padding: 30px;
+        padding-top: 40px;
+        padding-bottom: 40px;
         border-radius: 0.5vw;
         margin-inline-end: 2vw;
         text-align: center;
@@ -64,8 +66,8 @@ side-nav {
         box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.212);
 
         span{
-          font-size: 0.93vw;
-          font-weight: 700;
+          font-size: 0.77vw;
+          font-weight: 500;
         }
       }
     }

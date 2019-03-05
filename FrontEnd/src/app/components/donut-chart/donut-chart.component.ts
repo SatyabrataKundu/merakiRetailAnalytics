@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js'
 import { HttpClient } from '@angular/common/http';
-import { Observable, interval } from 'rxjs';
+import { Observable, interval, timer } from 'rxjs';
 
 @Component({
   selector: 'donut-chart',
@@ -12,8 +12,8 @@ export class DonutChartComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
   public chartType: string = "doughnut";
-  public chartLabels: Array<string> = ['Total Checkouts','Total Visitors'];
-  public chartLabels2: Array<string> = ['1', '2', '3', '4', '5', '6', '7','8'];
+  public chartLabels: Array<string> = ['Total Visitors', 'Total Checkouts'];
+  public chartLabels2: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8'];
   public chartData: Array<string> = [];
   public chartData2: Array<number> = [350, 150, 100, 45, 23, 12, 16, 70];
   public colorOptions: Array<any> = [
@@ -47,54 +47,48 @@ export class DonutChartComponent implements OnInit {
   }
 
   salesDonutChartUpdate(data) {
-    this.chartData=[];
-    this.chartData=data;
+    this.chartData = [];
+    this.chartData = data;
   }
 
-  zoneDonutChartUpdate(data){
-    this.chartData2=[];
-    this.chartData2=data;
+  zoneDonutChartUpdate(data) {
+    this.chartData2 = [];
+    this.chartData2 = data;
   }
 
   ngOnInit() {
     //Total Transactions
+    let mydata = "0";
+    
+    Observable
+    timer(1,1000 * 60).subscribe(() => {
     this.http.get('http://localhost:4004/api/v0/meraki/posSimulator/totalTransactions')
       .subscribe(res => {
-      this.chartData=[];
-      this.chartData.push(res[0].count);
+        mydata = res[0].count;
+        this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorCountByDate')
+          .subscribe(res => {
+            this.chartData = [];
+            this.chartData.push(res[0].count);
+            this.chartData.push(mydata);
+            this.salesDonutChartUpdate(this.chartData);
+          })
 
-      this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorCountByDate')
-      .subscribe(res => {
-        this.chartData.push(res[0].count);
-        
-        this.salesDonutChartUpdate(this.chartData);
-      })
-        
       });
+    });
 
-      Observable
-      interval(1000 * 60).subscribe(() =>
+    Observable
+    interval(1000 * 60).subscribe(() =>
       this.http.get('http://localhost:4004/api/v0/meraki/camera/currentVisitorsPerZone')
-      .subscribe(res => {
-        this.chartData2=[];
-        this.zoneData = res;
-        for(let i of this.zoneData){
-          this.chartData2.push(i.count)
-        }
-        this.zoneDonutChartUpdate(this.chartData2);
-      })
-      )
-
-      // this.http.get('http://localhost:4004/api/v0/meraki/camera/currentVisitorsPerZone')
-      // .subscribe(res => {
-      //   this.chartLabels2 = [];
-      //   this.zoneLabels = res;
-      //   for(let i of this.zoneLabels){
-      //     this.chartLabels2.push(i.)
-      //   }
-      // })
-
-    }
-
+        .subscribe(res => {
+          this.chartData2 = [];
+          this.zoneData = res;
+          for (let i of this.zoneData) {
+            this.chartData2.push(i.count)
+          }
+          this.zoneDonutChartUpdate(this.chartData2);
+        })
+    )
   }
+
+}
 

@@ -61,8 +61,9 @@ export class ChartsComponent implements OnInit {
             drawOnChartArea: true
           },
           ticks: {
-            maxTicksLimit: 4
-          }
+            maxTicksLimit: 4,
+            beginAtZero: true
+          },
         }
       ]
     }
@@ -100,7 +101,8 @@ export class ChartsComponent implements OnInit {
             drawOnChartArea: true
           },
           ticks: {
-            maxTicksLimit: 3
+            maxTicksLimit: 3,
+            beginAtZero: true
           }
         }
       ]
