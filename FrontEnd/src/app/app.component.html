@@ -1,5 +1,5 @@
 <side-nav></side-nav>
-<div>
+<div style="background-color: #eeeeee52;">
   <div class=wrapper>
     <information-cards></information-cards>
   </div>
@@ -8,11 +8,10 @@
     <div class="info-center">
       <p>Checkout Wait Time</p>
       <div class="wait-time-wrapper">
-        <div class="card" style="background: linear-gradient(45deg, rgb(230, 226, 31) 0%, rgb(255, 145, 0) 100%);"><span>POS 1 : 12 mins</span></div>
-        <div class="card" style="background: linear-gradient(45deg, rgba(189,222,109,1) 0%, rgba(110,148,52,1) 100%);"><span>POS 2 : 10 mins</span></div>
-        <div class="card" style="background: linear-gradient(45deg, rgba(189,222,109,1) 0%, rgba(110,148,52,1) 100%);"><span>POS 3 : 12 mins</span></div>
-        <div class="card" style="background: linear-gradient(45deg, rgb(212, 93, 64) 0%, rgb(255, 71, 71) 100%); "><span>POS 4 : 15 mins</span></div>
-        <div class="card" style="background: linear-gradient(45deg, rgb(212, 93, 64) 0%, rgb(255, 71, 71) 100%); "><span>POS 5 : 17 mins</span></div>
+        <div class="card"
+        *ngFor="let i of posWaitTime">
+        <span>POS {{i.posid}} : {{i.waittime}}</span>
+        </div>
       </div>
 
 
