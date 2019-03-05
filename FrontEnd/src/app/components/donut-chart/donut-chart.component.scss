@@ -1,17 +1,9 @@
-canvas{
-    -webkit-animation: rotation 50s infinite linear;
-
-    @-webkit-keyframes rotation {
-		from {
-				-webkit-transform: rotate(359deg);
-		}
-		to {
-				-webkit-transform: rotate(0deg);
-		}
-    }
-
-    p{
-        position: relative;
-        display: block;
-    }
- }
+.chart-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5%;
+  margin-right: -10%;
+  height: fit-content;
+  width: 45vw;
+}
