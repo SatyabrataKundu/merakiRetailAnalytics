@@ -1,9 +1,6 @@
 <div style="display: flex; justify-content: space-between;">
 
   <div>
-
-
-
     <!-- <p style="font-size: 15px;">Granularity : <strong style="color: rgb(182, 65, 56);">{{selectedValue}}</strong>
     </p> -->
 
@@ -32,12 +29,12 @@
 
     <mat-form-field style="margin-right:50px;">
       <mat-select placeholder="Zone Name" [(ngModel)]="selectedValue2" name="item" (selectionChange)=changeZone($event)>
-        <mat-option *ngFor="let i of period" [value]="i.value">{{i.viewValue}}</mat-option>
+        <mat-option *ngFor="let i of zones" [value]="i.zoneId">{{i.zoneName}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Choose Period" [(ngModel)]="selectedValue2" name="item" (selectionChange)=changeZoneGran($event)>
+      <mat-select placeholder="Choose Period" [(ngModel)]="selectedValue3" name="item" (selectionChange)=changeZoneGran($event)>
         <mat-option *ngFor="let i of period" [value]="i.value">{{i.viewValue}}</mat-option>
       </mat-select>
     </mat-form-field>

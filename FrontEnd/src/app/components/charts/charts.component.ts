@@ -15,6 +15,7 @@ export class ChartsComponent implements OnInit {
   granularity: any;
   pattern: string = "";
   flag: boolean = false;
+  zones:any;
 
   period = [
     { value: "Hourly Till Now", viewValue: "Today" },
@@ -148,5 +149,9 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.http.get('http://localhost:4004/api/v0/meraki/camera/zones')
+    .subscribe(res => {
+      this.zones = res["zoneList"];
+    })
   }
 }
