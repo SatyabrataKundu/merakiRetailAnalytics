@@ -73,7 +73,7 @@ export class DonutChartComponent implements OnInit {
       });
 
       Observable
-      interval(1000).subscribe(() =>
+      interval(1000 * 60).subscribe(() =>
       this.http.get('http://localhost:4004/api/v0/meraki/camera/currentVisitorsPerZone')
       .subscribe(res => {
         this.chartData2=[];

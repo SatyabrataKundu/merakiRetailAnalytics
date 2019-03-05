@@ -16,6 +16,11 @@ export class ChartsComponent implements OnInit {
   pattern: string = "";
   flag: boolean = false;
   zones:any;
+  zoneName: any;
+  zoneGranularity:any;
+  zoneDataFetched: any;
+  zoneLabels: any;
+  selectedValue3: any;
 
   period = [
     { value: "Hourly Till Now", viewValue: "Today" },
@@ -117,6 +122,41 @@ export class ChartsComponent implements OnInit {
     this.setChartData(this.chartData);
   }
 
+  zoneAnalysisChartUpdate(){
+    this.chartService.getZoneChartData()
+    .subscribe(res => {
+      this.chartData2=[];
+      this.zoneDataFetched = res;
+      for(let i of this.zoneDataFetched){
+        this.chartData2.push(i["detected_clients"]);
+      }
+    })
+    this.setZoneChartData(this.chartData2);
+  }
+
+  changeZone(zone){
+    this.zoneName = zone.value;
+    this.chartService.setZoneId(zone);
+    // this.selectedValue3 = "Hourly Till Now";
+    
+  }
+
+  changeZoneGran(gran){
+    this.zoneGranularity = gran.value;
+    this.chartService.setZoneGranularity(this.zoneGranularity);
+
+    this.chartService.getZoneChartData()
+    .subscribe(res => {
+      this.chartLabels2 = [];
+      this.zoneLabels = res;
+      for(let i of this.zoneLabels){
+        this.chartLabels2.push(i["timerange"])
+      }
+    })
+
+    this.setZoneChartLabels(this.chartLabels2);
+    this.zoneAnalysisChartUpdate();
+  }
 
 
   changeGran(gran) {
@@ -148,10 +188,18 @@ export class ChartsComponent implements OnInit {
     this.chartLabels = labels;
   }
 
+  private setZoneChartData(data){
+    this.chartData2 = data;
+  }
+
+  private setZoneChartLabels(labels){
+    this.chartLabels2 = labels;
+  }
+
   ngOnInit() {
     this.http.get('http://localhost:4004/api/v0/meraki/camera/zones')
     .subscribe(res => {
-      this.zones = res["zoneList"];
+      this.zones = res;
     })
   }
 }
