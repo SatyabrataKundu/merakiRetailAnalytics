@@ -6,7 +6,7 @@ CREATE TABLE meraki.pos_data
     no_of_items integer,
     total_amount integer,
     pos_counter_number integer,
-    datetime bigint,
+    datetime character varying COLLATE pg_catalog."default",
     dateformat_date character varying(12) COLLATE pg_catalog."default",
 	dateformat_year integer DEFAULT 2019,
     dateformat_month integer,
