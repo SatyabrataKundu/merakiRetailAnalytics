@@ -185,7 +185,7 @@ export class ChartsComponent implements OnInit {
         this.chartLabels = [];
         this.proximityDataFetched = res;
         for (let i of this.proximityDataFetched) {
-          this.chartLabels.push(i.date);
+          this.chartLabels.push(i.timerange);
         }
       })
     this.setChartLabels(this.chartData);
