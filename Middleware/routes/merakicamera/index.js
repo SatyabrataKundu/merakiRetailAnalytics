@@ -102,7 +102,7 @@ router.get("/", function (req, res) {
 
  
 
-    responseObject.data = dataList;
+    responseObject.status = "SUCCESS";
     res.status(200).send(responseObject);
 });
 

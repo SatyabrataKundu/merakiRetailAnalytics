@@ -57,7 +57,7 @@ router.get("/visitorPattern", function (req, res) {
     if (pattern == 'today') {
         var datetime = new Date();
         let date = dateFormat(datetime, "yyyy-mm-dd");
-        db.any("select count (distinct (client_mac_address)), dateformat_hour  as date from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
+        db.any("select count (distinct (client_mac_address)), dateformat_hour  as timeRange from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
             .then(function (result) {
                 console.log("db select success for date ", result);
                 res.status(200).send(result);
@@ -72,7 +72,7 @@ router.get("/visitorPattern", function (req, res) {
         datetime.setDate(datetime.getDate() - 1);
         let date = dateFormat(datetime, "yyyy-mm-dd");
 
-        db.any("select count (distinct (client_mac_address)), dateformat_hour as date from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
+        db.any("select count (distinct (client_mac_address)), dateformat_hour as timeRange from meraki.scanning_ap_data where dateformat_date ='" + date + "' group by dateformat_hour")
             .then(function (result) {
                 console.log("db select success for date ", result);
                 res.status(200).send(result);
@@ -84,7 +84,7 @@ router.get("/visitorPattern", function (req, res) {
             });
     } else if (pattern == 'this week') {
         let weekValue = dateFormat(datetime, "W");
-        db.any("select count (distinct (client_mac_address)), dateformat_date as date from meraki.scanning_ap_data where dateformat_week =" + weekValue + " group by dateformat_date")
+        db.any("select count (distinct (client_mac_address)), dateformat_date as timeRange from meraki.scanning_ap_data where dateformat_week =" + weekValue + " group by dateformat_date")
             .then(function (result) {
                 console.log("db select success for date ", result);
                 res.status(200).send(result);
@@ -97,7 +97,7 @@ router.get("/visitorPattern", function (req, res) {
     } else if (pattern == 'last week') {
         let weekValue = dateFormat(datetime, "W");
         weekValue = weekValue - 1;
-        db.any("select count (distinct (client_mac_address)), dateformat_date as date from meraki.scanning_ap_data where dateformat_week =" + weekValue + " group by dateformat_date")
+        db.any("select count (distinct (client_mac_address)), dateformat_date as timeRange from meraki.scanning_ap_data where dateformat_week =" + weekValue + " group by dateformat_date")
             .then(function (result) {
                 console.log("db select success for date ", result);
                 res.status(200).send(result);
@@ -110,7 +110,7 @@ router.get("/visitorPattern", function (req, res) {
     } else if (pattern == 'this month') {
         let monthValue = dateFormat(datetime, "m");
         console.log(monthValue);
-        db.any("select count (distinct (client_mac_address)),CONCAT('week ',dateformat_week) as date  from meraki.scanning_ap_data where dateformat_month =" + monthValue + " group by dateformat_week")
+        db.any("select count (distinct (client_mac_address)),CONCAT('week ',dateformat_week) as timeRange  from meraki.scanning_ap_data where dateformat_month =" + monthValue + " group by dateformat_week")
             .then(function (result) {
                 console.log("db select success for date ", result);
                 res.status(200).send(result);
@@ -124,7 +124,7 @@ router.get("/visitorPattern", function (req, res) {
         let monthValue = dateFormat(datetime, "m");
         monthValue = monthValue - 1;
         console.log(monthValue);
-        db.any("select count (distinct (client_mac_address)),CONCAT('week ',dateformat_week) as date  from meraki.scanning_ap_data where dateformat_month =" + monthValue + " group by dateformat_week")
+        db.any("select count (distinct (client_mac_address)),CONCAT('week ',dateformat_week) as timeRange  from meraki.scanning_ap_data where dateformat_month =" + monthValue + " group by dateformat_week")
             .then(function (result) {
                 console.log("db select success for date ", result);
                 res.status(200).send(result);
