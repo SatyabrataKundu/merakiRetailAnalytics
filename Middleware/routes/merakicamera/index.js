@@ -315,9 +315,20 @@ router.get("/currentVisitorsPerZone", function (req, res) {
     +" from meraki.camera_detections cam, meraki.meraki_zones zones where "
     +" cam.zoneid = zones.zone_id and  "
     +" cam.dateformat_date = '"+formattedDateString+"' and cam.dateformat_hour="+hourValue 
+    +" and  zones.zone_name not like 'Checkout%'"
     +" and cam.dateformat_minute= (select dateformat_minute from meraki.camera_detections "
     +" order by unique_camera_detection_key desc LIMIT 1 ) 	group by cam.zoneid, zones.zone_name";
-    db.any(selectQuery)
+
+    var checkoutSelectQry = "SELECT COUNT(DISTINCT(cam.person_oid)), 15 , 'Checkout'"
+    +" from meraki.camera_detections cam, meraki.meraki_zones zones where "
+    +" cam.zoneid = zones.zone_id and  "
+    +" cam.dateformat_date = '"+formattedDateString+"' and cam.dateformat_hour="+hourValue 
+    +" and  zones.zone_name like 'Checkout%'"
+    +" and cam.dateformat_minute= (select dateformat_minute from meraki.camera_detections "
+    +" order by unique_camera_detection_key desc LIMIT 1 ) ";
+
+    var finalSelect = selectQuery + " UNION ALL " + checkoutSelectQry;
+    db.any(finalSelect)
         .then(function (result) {
             console.log("db select success for date ", result);
             res.status(200).send(result);
