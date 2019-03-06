@@ -71,16 +71,8 @@ export class ChartsComponent implements OnInit {
   };
 
   public chartType2: string = "bar";
-  public chartLabels2: Array<string> = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
-  ];
-  public chartData2: Array<number> = [23, 12, 15, 22, 23, 12, 24];
+  public chartLabels2: Array<string> = [];
+  public chartData2: Array<number> = [];
   public colorOptions2: Array<any> = [
     {
       // grey
@@ -148,6 +140,16 @@ export class ChartsComponent implements OnInit {
     this.chartService.setZoneId(zone);
     
     if(this.count > 0){
+      this.chartService.getZoneChartData()
+    .subscribe(res => {
+      this.chartLabels2 = [];
+      this.zoneLabels = res;
+      for(let i of this.zoneLabels){
+        this.chartLabels2.push(i["timerange"])
+      }
+    })
+
+    this.setZoneChartLabels(this.chartLabels2);
       this.zoneAnalysisChartUpdate();
     }
     this.count++;
