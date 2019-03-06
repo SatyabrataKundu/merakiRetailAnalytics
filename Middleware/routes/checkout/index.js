@@ -18,7 +18,7 @@ router.get("/waitTime", function (req, res) {
     // res.status(200).send("success");
     var endDate = new Date();
     var startdate = new Date();
-    var durationInMinutes = 10;
+    var durationInMinutes = config.get("simulator.checkout.queueconstant");
     startdate.setMinutes(endDate.getMinutes() - durationInMinutes);
     console.log("Start Date " + startdate);
     console.log("End Date " + endDate);
