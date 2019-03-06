@@ -23,9 +23,13 @@ export class DonutChartComponent implements OnInit {
         "rgba(255, 20, 100, 0.4)",
         "rgba(255, 140, 120, 0.4)",
         "rgba(124, 22, 10, 0.4)",
-        "rgba(80, 20, 222, 0.4)",
+        "rgba(80, 120, 122, 0.4)",
         "rgba(149, 210, 10, 0.4)",
-        "rgba(55, 210, 255, 0.4)"],
+        "rgba(55, 210, 255, 0.4)",
+        "rgba(175, 11, 17,0.4)",
+        "rgba(10, 113, 20, 0.4)",
+        "rgba(25, 120, 100, 0.4)",
+        "rgba(55, 40, 120, 0.4)"],
       hoverBackgroundColor: ['rgba(175, 122, 197,1)', "rgba(100, 123, 20, 1)", "rgba(255, 20, 100, 1)"]
     }
   ];
@@ -56,43 +60,56 @@ export class DonutChartComponent implements OnInit {
     this.chartData2 = data;
   }
 
-  clearZoneDonutChart(){
-    this.chartData2 = [];
-    this.chartLabels2.length = 0;
+  zoneDonutChartLabels(labels){
+    this.chartLabels2=[];
+    this.chartLabels2 = labels;
   }
+  
+
+
   ngOnInit() {
     //Total Transactions
     let mydata = "0";
 
     Observable
-    timer(1, 1000 * 60).subscribe(() => {
-      this.http.get('http://localhost:4004/api/v0/meraki/posSimulator/totalTransactions')
-        .subscribe(res => {
-          mydata = res[0].count;
-          this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorCountByDate')
-            .subscribe(res => {
-              this.chartData = [];
-              this.chartData.push(res[0].count);
-              this.chartData.push(mydata);
-              this.salesDonutChartUpdate(this.chartData);
-            })
+    timer(1,1000*30).subscribe(() => 
+    this.http.get('http://localhost:4004/api/v0/meraki/posSimulator/totalTransactions')
+      .subscribe(res => {
+        mydata = res[0].count;
+        this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorCountByDate')
+          .subscribe(res => {
+            this.chartData = [];
+            this.chartData.push(res[0].count);
+            this.chartData.push(mydata);
+            this.salesDonutChartUpdate(this.chartData);
+          })
 
-        });
-    });
+        })
+    )
 
     Observable
     timer(1,1000 * 60).subscribe(() =>
       this.http.get('http://localhost:4004/api/v0/meraki/camera/currentVisitorsPerZone')
         .subscribe(res => {
-          this.clearZoneDonutChart()
+          this.chartData2=[];
           this.zoneData = res;
           for (let i of this.zoneData) {
             this.chartData2.push(i.count)
-            this.chartLabels2.push(i.zonename);
-            // console.log(i.zonename);
           }
           this.zoneDonutChartUpdate(this.chartData2);
+
+          this.http.get('http://localhost:4004/api/v0/meraki/camera/currentVisitorsPerZone')
+          .subscribe(res => {
+            this.chartLabels2=[];
+            this.zoneData = res;
+            for (let i of this.zoneData) {
+              this.chartLabels2.push(i.zonename)
+            }
+          })
+          this.zoneDonutChartLabels(this.chartLabels2);
         })
+
+       
     )
   }
 

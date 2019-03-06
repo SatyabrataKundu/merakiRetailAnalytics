@@ -14,7 +14,7 @@ export class ChartsComponent implements OnInit {
   selectedValue: any;
   granularity: any;
   pattern: string = "";
-  flag: boolean = false;
+  isDisabled: boolean = true;
   zones:any;
   zoneName: any;
   zoneGranularity:any;
@@ -22,6 +22,7 @@ export class ChartsComponent implements OnInit {
   zoneLabels: any;
   zoneChartFlag: boolean = false;
   selectedValue3: any;
+  count:number = 0;
 
   period = [
     { value: "Hourly Till Now", viewValue: "Today" },
@@ -142,10 +143,14 @@ export class ChartsComponent implements OnInit {
   }
 
   changeZone(zone){
+    this.isDisabled = false;
     this.zoneName = zone.value;
     this.chartService.setZoneId(zone);
-    // this.selectedValue3 = "Hourly Till Now";
     
+    if(this.count > 0){
+      this.zoneAnalysisChartUpdate();
+    }
+    this.count++;
   }
 
   changeZoneGran(gran){
