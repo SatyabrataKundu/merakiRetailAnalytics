@@ -174,7 +174,6 @@ export class ChartsComponent implements OnInit {
 
 
   changeGran(gran) {
-    this.flag = false;
     this.granularity = gran.value;
 
     this.chartService.setGranularity(this.granularity);

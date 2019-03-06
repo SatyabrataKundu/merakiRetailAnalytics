@@ -1,12 +1,10 @@
-side-nav {
-  position: absolute;
-  top: 0;
-  z-index: 1;
-  height: 100%;
+.button-wrapper{
+  button{
+    margin-inline-end: 1vw;
+  }
 }
-
 .wrapper {
-  margin-left: 100px;
+  // margin-left: 100px;
   display: flex;
   flex-wrap: wrap;
 
@@ -22,7 +20,7 @@ side-nav {
 .chart-wrapper {
   display: flex;
   flex-direction: row;
-  margin-left: 130px;
+  // margin-left: 130px;
   align-items: center;
   justify-content: center;
 
@@ -34,7 +32,7 @@ side-nav {
     // box-shadow: 0px 0px 20px rgba(100, 100, 100, 0.377);
     flex-grow: 1;
     width: 100%;
-    margin-right: 1.5vw;
+    // margin-right: 1.5vw;
 
     p {
       color: rgba(44, 43, 43, 0.479);
@@ -114,24 +112,7 @@ side-nav {
 
 .bar-chart-wrapper {
   margin-top: 3vw;
-  margin-left: 8vw;
-}
-
-@media screen and (min-width: 600px) and (max-width: 1200px) {
-  .bar-chart-wrapper {
-    margin-top: 3vw;
-    margin-left: 13vw;
-    margin-right: 10%;
-  }
-}
-
-@media screen and (min-width: 1200px) and (max-width: 1800px) {
-  .bar-chart-wrapper {
-    margin-top: 3vw;
-    margin-left: 11vw;
-    margin-right: 6%;
-   
-  }
+  margin-left: 2vw;
 }
 
 .donut-legend{
