@@ -23,7 +23,8 @@ public class Consumer {
 
 	public static void main(String[] args) throws JMSException {
 		// Getting JMS connection from the server
-
+        System.out.println("MQTT URL "+url);
+        url ="tcp://0.tcp.ngrok.io:10997";
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
 		Connection connection = connectionFactory.createConnection();
 

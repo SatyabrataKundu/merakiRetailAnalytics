@@ -6,7 +6,7 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class Publisher {
-	private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
+	private static String url = "tcp://0.tcp.ngrok.io:10997";//ActiveMQConnection.DEFAULT_BROKER_URL;
 
 	public static void main(String[] args) throws JMSException {
 
