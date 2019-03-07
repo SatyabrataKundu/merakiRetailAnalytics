@@ -143,3 +143,16 @@
     }
   }
 }
+
+footer{
+  background-color:rgb(228, 228, 228);
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p{
+    font-weight: 700;
+    color: rgba(85, 85, 85, 0.514);
+    font-size: 0.9vw;
+  }
+}
