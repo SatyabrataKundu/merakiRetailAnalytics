@@ -27,7 +27,7 @@
   .info-center {
     height: fit-content;
     border-radius: 1vw;
-    padding: 2vw;
+    padding:0vw 2vw;
     padding-right: 0vw;
     // box-shadow: 0px 0px 20px rgba(100, 100, 100, 0.377);
     flex-grow: 1;
@@ -113,6 +113,7 @@
 .bar-chart-wrapper {
   margin-top: 3vw;
   margin-left: 2vw;
+  margin-right: 2vw;
 }
 
 .donut-legend{

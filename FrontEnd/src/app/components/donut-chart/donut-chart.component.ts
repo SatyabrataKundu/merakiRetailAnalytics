@@ -38,11 +38,35 @@ export class DonutChartComponent implements OnInit {
   zoneLabels: any;
   zoneCount: any;
 
-
   public chartOptions: any = {
     maintainAspectRatio: true,
     cutoutPercentage: 56,
     responsive: true,
+    title: {
+      display: true,
+      text: 'Visitor Activity Stats',
+      fontFamily: 'Roboto',
+      fontSize: 30
+      },
+    legend: {
+      display: true,
+    },
+    tooltips: {
+      enabled: true,
+    }
+  }
+
+
+  public chartOptions2: any = {
+    maintainAspectRatio: true,
+    cutoutPercentage: 56,
+    responsive: true,
+    title: {
+      display: true,
+      text: 'Live Zone Population',
+      fontFamily: 'Roboto',
+      fontSize: 30
+      },
     legend: {
       display: true,
     },

@@ -38,7 +38,7 @@ export class ChartsComponent implements OnInit {
   proximityChartData = [];
   scanningChartData = [];
 
-  public chartType: string = "line";
+  public chartType: string = "bar";
   public chartLabels: Array<any> = [];
   public chartData: Array<number> = [];
   public colorOptions: Array<any> = [
@@ -67,7 +67,14 @@ export class ChartsComponent implements OnInit {
           },
         }
       ]
-    }
+    },
+    tooltips: {
+      callbacks: {
+         label: function(tooltipItem) {
+                return tooltipItem.yLabel;
+         }
+      }
+  }
   };
 
   public chartType2: string = "bar";
@@ -76,7 +83,7 @@ export class ChartsComponent implements OnInit {
   public colorOptions2: Array<any> = [
     {
       // grey
-      backgroundColor: "rgba(139, 208, 10, 0.3)",
+      backgroundColor: "rgba(83, 173, 227,0.5)",
       borderColor: "#00496B"
     }
   ];
@@ -99,7 +106,14 @@ export class ChartsComponent implements OnInit {
           }
         }
       ]
-    }
+    },
+    tooltips: {
+      callbacks: {
+         label: function(tooltipItem) {
+                return tooltipItem.yLabel;
+         }
+      }
+  }
   };
 
 
@@ -112,6 +126,9 @@ export class ChartsComponent implements OnInit {
         this.proximityDataFetched = res;
         for (let i of this.proximityDataFetched) {
           this.chartData.push(i["count"]);
+        }
+        if(this.proximityDataFetched.length == 0){
+          this.chartData.push(0);
         }
       })
 
@@ -127,6 +144,9 @@ export class ChartsComponent implements OnInit {
           this.zoneDataFetched = res;
           for (let i of this.zoneDataFetched) {
             this.chartData2.push(i["detected_clients"]);
+          }
+          if(this.zoneDataFetched.length == 0){
+            this.chartData2.push(0);
           }
         })
 
