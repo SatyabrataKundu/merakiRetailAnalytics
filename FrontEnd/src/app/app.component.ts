@@ -15,6 +15,8 @@ export class AppComponent implements OnInit{
   zoneData: any;
   zoneName: string;
   message: string;
+  notificationCount: number=0;
+  emptyZones: Array<string> =[];
 
   private notifier: NotifierService;
 
@@ -36,16 +38,18 @@ export class AppComponent implements OnInit{
     )
 
     Observable
-    timer(1,1000 * 30).subscribe(() =>
+    timer(1,1000 * 60 * 10).subscribe(() =>
     this.http.get('http://localhost:4004/api/v0/meraki/camera/currentVisitorsPerZone')
     .subscribe(res => {
       this.zoneData =  res;
       for(let i of this.zoneData){
-        if(i.count == 0){
+    if(i.count == 0){
+          this.notificationCount++;
           this.zoneName = i.zone_name;
-          this.message = this.zoneName + " zone has 0 visitors, please turn off lights to conserve energy"
+          this.message = this.zoneName + " zone has 0 visitors"
+          this.emptyZones.push(this.message);
           this.showNotification('default',this.message);
-        }
+    }
       }
     })
     )
