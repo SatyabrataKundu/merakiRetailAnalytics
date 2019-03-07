@@ -76,8 +76,14 @@ router.get("/", function (req, res) {
             else if (zoneObject.zone_id ===2 || zoneObject.zone_id === 3 || zoneObject.zone_id ===4 || zoneObject.zone_id === 5 || zoneObject.zone_id ===6) {
                 numberOfPeopleDetected = gen3();
             }
-            else{
+            else if(zoneObject.zone_id === 7){
                 numberOfPeopleDetected = gen1();
+            }
+            else if(zoneObject.zone_id === 8 || zoneObject.zone_id === 11){
+                numberOfPeopleDetected = 20 + gen1();
+            }
+            else{
+                numberOfPeopleDetected = 15+ gen1();
             }
             for (i = 0; i < numberOfPeopleDetected; i++) {
                 var genOID = rn.generator({
@@ -85,11 +91,29 @@ router.get("/", function (req, res) {
                     max: 9999,
                     integer: true
                 })
-                dbInsertCamData.personOID = genOID();
-                dbInsertCamData.zoneId = zoneObject.zone_id;
-    
+                if(zoneObject.zone_id === 8  && i<20  ){
+                    dbInsertCamData.personOID = 10001+i;
+                    dbInsertCamData.zoneId = zoneObject.zone_id;
+                }
+                if(zoneObject.zone_id === 11 && i<20  ){
+                    dbInsertCamData.personOID = 20001+i;
+                    dbInsertCamData.zoneId = zoneObject.zone_id;
+                }
+                else if(zoneObject.zone_id === 9 && i<15){
+                    dbInsertCamData.personOID = 30001+i;
+                    dbInsertCamData.zoneId = zoneObject.zone_id;
+                }
+                else if(zoneObject.zone_id === 10 && i<15){
+                    dbInsertCamData.personOID = 40001+i;
+                    dbInsertCamData.zoneId = zoneObject.zone_id;
+                }
+                else{
+                    dbInsertCamData.personOID = genOID();
+                    dbInsertCamData.zoneId = zoneObject.zone_id;
+                }
                  _performDBInsert(dbInsertCamData);
                 dataList.push(dbInsertCamData);
+                console.log('value of datalist is ',dataList);
             }
         });
 
