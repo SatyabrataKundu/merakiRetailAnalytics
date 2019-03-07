@@ -36,6 +36,7 @@ export class DonutChartComponent implements OnInit {
 
   zoneData: any;
   zoneLabels: any;
+  zoneCount: any;
 
 
   public chartOptions: any = {
@@ -108,8 +109,6 @@ export class DonutChartComponent implements OnInit {
           })
           this.zoneDonutChartLabels(this.chartLabels2);
         })
-
-       
     )
   }
 

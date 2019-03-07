@@ -3,9 +3,7 @@ background: linear-gradient(90deg, rgb(16, 38, 59) 0%, rgba(13, 143, 182, 0.774)
   <mat-toolbar-row style="display: flex; justify-content: space-between">
     <span>Meraki Retail Analytics</span>
     <div class="button-wrapper">
-      <button mat-raised-button color="primary">Primary</button>
-      <button mat-raised-button color="accent">Accent</button>
-      <button mat-raised-button color="warn">Warn</button>
+      <button mat-raised-button color="warn">Logout</button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -22,7 +20,7 @@ background: linear-gradient(90deg, rgb(16, 38, 59) 0%, rgba(13, 143, 182, 0.774)
       <div class="wait-time-wrapper">
         <div class="card"
         *ngFor="let i of posWaitTime">
-        <span>Counter {{i.posid}} : <h6>{{i.waittime}} min</h6></span>
+        <span>Counter {{i.pos_counter_number}} : <h6>{{i.waittime}} min</h6></span>
         </div>
       </div>
 
@@ -53,6 +51,7 @@ background: linear-gradient(90deg, rgb(16, 38, 59) 0%, rgba(13, 143, 182, 0.774)
     <charts></charts>
 </div>
 
+<notifier-container></notifier-container>
 
 
 <router-outlet></router-outlet>
