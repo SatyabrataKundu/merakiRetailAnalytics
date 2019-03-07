@@ -41,12 +41,32 @@ router.get("/waitTime", function (req, res) {
             console.log("not able to get connection " + err);
             res.status(500).send(JSON.stringify(err.message));
         });
+});
 
 
+router.get("/totalCheckoutZoneVisitorsToday", function (req, res) {
+
+    var datetime = new Date();
+    let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
+
+    var checkoutSelectQry = "select count(distinct(person_oid)) from meraki.camera_detections c , meraki.meraki_zones z"
+    +" where c.zoneid = z.zone_id"
+    +" and z.zone_name like 'Checkout%'"
+    +" and c.dateformat_date = '"+formattedDateString+"'";
 
 
+    console.log('ceckoutselect query ',checkoutSelectQry);
 
+    db.any(checkoutSelectQry)
+        .then(function (result) {
+            console.log("db select success for date ", result);
+            res.status(200).send(result);
 
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+        });
 });
 
 module.exports = router;
