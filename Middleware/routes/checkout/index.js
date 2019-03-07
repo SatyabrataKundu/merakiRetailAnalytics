@@ -23,10 +23,13 @@ router.get("/waitTime", function (req, res) {
     console.log("Start Date " + startdate);
     console.log("End Date " + endDate);
 
-    let query = "select (case when ROUND((count(distinct (cam.person_oid)) - count(distinct(unique_pos_data_key)))/2.0,2)>0 Then  ROUND((count(distinct (cam.person_oid)) - count(distinct(unique_pos_data_key)))/2.0,2) ELSE 0 END) as waitTime, pos.pos_counter_number as posId from meraki.camera_detections cam right outer join meraki.checkoutzone_billingcounter_map mapp on cam.zoneid=mapp.zone_id right outer join meraki.pos_data pos on mapp.pos_counter_number=pos.pos_counter_number where "
-        + "(cam.datetime between " + startdate.getTime() + " and " + endDate.getTime() + ") "
+    let query = "select (case when ROUND((count(distinct (cam.person_oid)) - count(distinct(unique_pos_data_key)))/2.0,2)>0 Then  ROUND((count(distinct (cam.person_oid)) - count(distinct(unique_pos_data_key)))/2.0,2) ELSE 0 END) as waitTime, "
+        + "mapp.pos_counter_number "
+        + "from meraki.camera_detections cam right outer join meraki.checkoutzone_billingcounter_map mapp "
+        + "on cam.zoneid=mapp.zone_id and (cam.datetime between " + startdate.getTime() + " and " + endDate.getTime() + ") left outer join meraki.pos_data pos "
+        + "on mapp.pos_counter_number=pos.pos_counter_number "
         + "and (pos.datetime between  " + startdate.getTime() + " and " + endDate.getTime() + ") "
-        + "group by cam.zoneid,pos.pos_counter_number";
+        + " group by cam.zoneid,mapp.pos_counter_number";
     console.log(query);
     db.any(query)
         .then(function (result) {
