@@ -12,7 +12,7 @@ export class DonutChartComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
   public chartType: string = "doughnut";
-  public chartLabels: Array<string> = ['Total Visitors', 'Total Checkouts'];
+  public chartLabels: Array<string> = ['Total Transactions', 'Total Visitors',  'Total Checkouts'];
   public chartLabels2: Array<string> = [];
   public chartData: Array<string> = [];
   public chartData2: Array<number> = [350, 150, 100, 45, 23, 12, 16, 70];
@@ -61,38 +61,46 @@ export class DonutChartComponent implements OnInit {
     this.chartData2 = data;
   }
 
-  zoneDonutChartLabels(labels){
-    this.chartLabels2=[];
+  zoneDonutChartLabels(labels) {
+    this.chartLabels2 = [];
     this.chartLabels2 = labels;
   }
-  
+
 
 
   ngOnInit() {
     //Total Transactions
-    let mydata = "0";
+    let totalTransactions = "0";
+    let totalVisitors = "0";
+    let totalCheckouts = "0";
 
     Observable
-    timer(1,1000*30).subscribe(() => 
-    this.http.get('http://localhost:4004/api/v0/meraki/posSimulator/totalTransactions')
-      .subscribe(res => {
-        mydata = res[0].count;
-        this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorCountByDate')
-          .subscribe(res => {
-            this.chartData = [];
-            this.chartData.push(res[0].count);
-            this.chartData.push(mydata);
-            this.salesDonutChartUpdate(this.chartData);
-          })
+    timer(1, 1000 * 30).subscribe(() =>
+      this.http.get('http://localhost:4004/api/v0/meraki/posSimulator/totalTransactions')
+        .subscribe(res => {
+          totalTransactions = res[0].count;
+          this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorCountByDate')
+            .subscribe(res => {
+              totalVisitors = res[0].count;
+              this.http.get('http://localhost:4004/api/v0/meraki/checkout/totalCheckoutZoneVisitorsToday')
+                .subscribe(res => {
+                  this.chartData = [];
+                  totalCheckouts = res[0].count;
+                  this.chartData.push(totalTransactions);
+                  this.chartData.push(totalVisitors);
+                  this.chartData.push(totalCheckouts);
+                  this.salesDonutChartUpdate(this.chartData);
+                })
+            })
 
         })
     )
 
     Observable
-    timer(1,1000 * 60).subscribe(() =>
+    timer(1, 1000 * 60).subscribe(() =>
       this.http.get('http://localhost:4004/api/v0/meraki/camera/currentVisitorsPerZone')
         .subscribe(res => {
-          this.chartData2=[];
+          this.chartData2 = [];
           this.zoneData = res;
           for (let i of this.zoneData) {
             this.chartData2.push(i.count)
@@ -100,13 +108,13 @@ export class DonutChartComponent implements OnInit {
           this.zoneDonutChartUpdate(this.chartData2);
 
           this.http.get('http://localhost:4004/api/v0/meraki/camera/currentVisitorsPerZone')
-          .subscribe(res => {
-            this.chartLabels2=[];
-            this.zoneData = res;
-            for (let i of this.zoneData) {
-              this.chartLabels2.push(i.zone_name)
-            }
-          })
+            .subscribe(res => {
+              this.chartLabels2 = [];
+              this.zoneData = res;
+              for (let i of this.zoneData) {
+                this.chartLabels2.push(i.zone_name)
+              }
+            })
           this.zoneDonutChartLabels(this.chartLabels2);
         })
     )
