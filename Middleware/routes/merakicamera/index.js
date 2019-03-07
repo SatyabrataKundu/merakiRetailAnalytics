@@ -45,7 +45,7 @@ router.get("/", function (req, res) {
             
             var gen3 = rn.generator({
                 min: 1,
-                max: 3,
+                max: 2,
                 integer: true
             })
     
