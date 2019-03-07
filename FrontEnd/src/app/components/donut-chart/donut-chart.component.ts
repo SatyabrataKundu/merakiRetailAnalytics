@@ -103,7 +103,7 @@ export class DonutChartComponent implements OnInit {
             this.chartLabels2=[];
             this.zoneData = res;
             for (let i of this.zoneData) {
-              this.chartLabels2.push(i.zonename)
+              this.chartLabels2.push(i.zone_name)
             }
           })
           this.zoneDonutChartLabels(this.chartLabels2);
