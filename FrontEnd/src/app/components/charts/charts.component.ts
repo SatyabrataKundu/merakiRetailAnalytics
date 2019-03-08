@@ -117,7 +117,6 @@ export class ChartsComponent implements OnInit {
   };
 
 
-
   proximityChartUpdate() {
 
     this.chartService.getChartData()

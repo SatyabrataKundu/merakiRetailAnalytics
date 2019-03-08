@@ -10,6 +10,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatListModule} from '@angular/material/list';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
 
@@ -28,6 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartdataService } from './services/chartdata.service';
+import { NotificationPanelComponent } from './components/notification-panel/notification-panel.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -78,7 +82,8 @@ const customNotifierOptions: NotifierOptions = {
     InformationCardsComponent,
     ChartsComponent,
     StackedBarChartComponent,
-    DonutChartComponent
+    DonutChartComponent,
+    NotificationPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +101,9 @@ const customNotifierOptions: NotifierOptions = {
     MatDatepickerModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
+    MatBadgeModule,
+    MatMenuModule,
+    MatListModule,
     NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [ChartdataService],
