@@ -1,11 +1,9 @@
--- Table: meraki.realtime_zones
-
--- DROP TABLE meraki.realtime_zones;
 
 CREATE TABLE meraki.realtime_zones
 (
+    zone_name character varying(80) COLLATE pg_catalog."default",
+    zone_id bigint
 )
-
 WITH (
     OIDS = FALSE
 )
@@ -13,7 +11,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE meraki.realtime_zones
     OWNER to postgres;
-
 
 
 insert into meraki.realtime_zones (zone_id, zone_name) values (668784544664518704, 'Checkout1');
