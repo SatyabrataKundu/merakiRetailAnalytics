@@ -31,7 +31,14 @@ CREATE TABLE meraki.realtime_mqtt_detections
 (
     zone_id bigint,
     entrances integer,
-    datetime bigint
+    datetime bigint,
+    dateformat_date character varying(12) COLLATE pg_catalog."default",
+	dateformat_year integer DEFAULT 2019,
+    dateformat_month integer,
+    dateformat_week integer,
+    dateformat_day integer,
+    dateformat_hour integer,
+    dateformat_minute integer,
 )
 WITH (
     OIDS = FALSE
