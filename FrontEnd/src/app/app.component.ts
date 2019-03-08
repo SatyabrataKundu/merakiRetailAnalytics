@@ -26,7 +26,15 @@ export class AppComponent implements OnInit{
 
   public showNotification( type: string, message: string ): void {
 		this.notifier.notify( type, message );
-	}
+  }
+  
+  clearNotification(){
+    this.notificationCount=0;
+  }
+
+  clearNotificationList(){
+    this.emptyZones=[];
+  }
 
   ngOnInit(){
     Observable

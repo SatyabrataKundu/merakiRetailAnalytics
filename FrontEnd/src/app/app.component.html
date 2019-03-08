@@ -7,13 +7,14 @@ background: linear-gradient(90deg, rgb(16, 38, 59) 0%, rgba(13, 143, 182, 0.774)
     <span>Meraki Retail Analytics</span>
 
     <div>
-      <button mat-icon-button [matMenuTriggerFor]="menu">
+      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="clearNotification()">
         <mat-icon matBadge={{notificationCount}} matBadgeColor="warn">notification_important</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
         <mat-list>
-          <mat-list-item *ngFor="let i of emptyZones"> {{i}} </mat-list-item>
-         </mat-list>
+          <mat-list-item *ngFor="let i of emptyZones"> <strong style="color: rgb(143, 143, 143); font-size: 15px;">{{i}}</strong> </mat-list-item>
+        </mat-list>
+        <button mat-button style="float: right; margin: 0px 10px 10px 0px;" (click)="clearNotificationList()"><mat-icon>clear</mat-icon></button>
       </mat-menu>
       </div>
   </mat-toolbar-row>
