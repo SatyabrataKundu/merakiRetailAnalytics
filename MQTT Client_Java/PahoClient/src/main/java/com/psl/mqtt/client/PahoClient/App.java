@@ -22,9 +22,9 @@ public class App {
 		System.out.println("Starting Subscribers.");
 
 		zoneMapping = new HashMap<String, Long>();
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518754", 668784544664518754L);
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518755", 668784544664518755L);
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518756", 668784544664518756L);
+		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518757", 668784544664518757L);
+		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518758", 668784544664518758L);
+		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518759", 668784544664518759L);
 //		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518708", 668784544664518708L);
 //		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518705", 668784544664518705L);
 //		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518709", 668784544664518709L);
