@@ -29,25 +29,6 @@ background: linear-gradient(90deg, rgb(16, 38, 59) 0%, rgba(13, 143, 182, 0.774)
 
   <div class="chart-wrapper">
     <div class="info-center">
-      <p>Checkout Wait Time</p>
-      <div class="wait-time-wrapper">
-        <div class="card" *ngFor="let i of posWaitTime">
-          <span>Counter {{i.pos_counter_number}} : <h6>{{i.waittime}} min</h6></span>
-        </div>
-      </div>
-
-
-      <!-- <p>Latest POS Sales Amount</p>
-      <div class="latest-pos-sales">
-        <div class="sales-data"><span>12,000</span></div>
-        <div class="sales-data"><span>2,000</span></div>
-        <div class="sales-data"><span>1,500</span></div>
-        <div class="sales-data"><span>1,500</span></div>
-        <div class="sales-data"><span>1,567</span></div>
-      </div>  
-    </div> -->
-
-
     </div>
   </div>
 
@@ -58,7 +39,29 @@ background: linear-gradient(90deg, rgb(16, 38, 59) 0%, rgba(13, 143, 182, 0.774)
     </div>
 
   </div>
-
+  <div class="chart-wrapper">
+      <div class="info-center">
+        <p>Checkout Wait Time</p>
+        <div class="wait-time-wrapper">
+          <div class="card" *ngFor="let i of posWaitTime">
+            <span>Counter {{i.pos_counter_number}} : <h6>{{i.waittime}} min</h6></span>
+          </div>
+        </div>
+  
+  
+        <!-- <p>Latest POS Sales Amount</p>
+        <div class="latest-pos-sales">
+          <div class="sales-data"><span>12,000</span></div>
+          <div class="sales-data"><span>2,000</span></div>
+          <div class="sales-data"><span>1,500</span></div>
+          <div class="sales-data"><span>1,500</span></div>
+          <div class="sales-data"><span>1,567</span></div>
+        </div>  
+      </div> -->
+  
+  
+      </div>
+    </div>
   <div class="bar-chart-wrapper">
     <charts></charts>
   </div>
