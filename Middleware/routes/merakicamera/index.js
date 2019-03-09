@@ -49,8 +49,14 @@ router.get("/", function (req, res) {
             })
 
             var gen4 = rn.generator({
-                min: 3,
-                max: 5,
+                min: 2,
+                max: 4,
+                integer: true
+            })
+
+            var gen5 = rn.generator({
+                min: 1,
+                max: 3,
                 integer: true
             })
     
@@ -78,11 +84,14 @@ router.get("/", function (req, res) {
             if (zoneObject.zone_id === 1 || zoneObject.zone_id === 12) {
                 numberOfPeopleDetected = gen2();
             }
-            else if (zoneObject.zone_id ===4 || zoneObject.zone_id === 5 || zoneObject.zone_id ===6) {
+            else if (zoneObject.zone_id ===3 || zoneObject.zone_id === 4 || zoneObject.zone_id ===5) {
                 numberOfPeopleDetected = gen3();
             }
-            else if (zoneObject.zone_id ===2 || zoneObject.zone_id === 3) {
+            else if (zoneObject.zone_id ===2) {
                 numberOfPeopleDetected = gen4();
+            }
+            else if (zoneObject.zone_id ===6) {
+                numberOfPeopleDetected = gen5();
             }
             else if(zoneObject.zone_id === 7){
                 numberOfPeopleDetected = gen1();
