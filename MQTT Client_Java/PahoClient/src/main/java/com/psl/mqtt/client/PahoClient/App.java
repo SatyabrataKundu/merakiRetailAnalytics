@@ -22,28 +22,28 @@ public class App {
 		System.out.println("Starting Subscribers.");
 
 		zoneMapping = new HashMap<String, Long>();
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518704", 668784544664518704L);
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518706", 668784544664518706L);
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518707", 668784544664518707L);
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518708", 668784544664518708L);
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518705", 668784544664518705L);
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518709", 668784544664518709L);
-		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518711", 668784544664518711L);
+		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518754", 668784544664518754L);
+		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518755", 668784544664518755L);
+		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518756", 668784544664518756L);
+//		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518708", 668784544664518708L);
+//		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518705", 668784544664518705L);
+//		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518709", 668784544664518709L);
+//		zoneMapping.put("/merakimv/Q2GV-H7PZ-DBWW/668784544664518711", 668784544664518711L);
 
-		ApparelSubscriber apparelSubscriber = new ApparelSubscriber();
+//		ApparelSubscriber apparelSubscriber = new ApparelSubscriber();
 		CheckOut1Subscriber checkOut1Subscriber = new CheckOut1Subscriber();
-		CheckOut2Subscriber checkOut2Subscriber = new CheckOut2Subscriber();
+		CheckOut2Subscriber exitZone = new CheckOut2Subscriber();
 		EntranceSubscriber entranceSubscriber = new EntranceSubscriber();
-		GrocerySubscriber grocerySubscriber = new GrocerySubscriber();
-		KidsSubscriber kidsSubscriber = new KidsSubscriber();
-		WaitingSubscriber waitingSubscriber = new WaitingSubscriber();
+//		GrocerySubscriber grocerySubscriber = new GrocerySubscriber();
+//		KidsSubscriber kidsSubscriber = new KidsSubscriber();
+//		WaitingSubscriber waitingSubscriber = new WaitingSubscriber();
 
-		apparelSubscriber.start();
+//		apparelSubscriber.start();
 		checkOut1Subscriber.start();
-		checkOut2Subscriber.start();
+		exitZone.start();
 		entranceSubscriber.start();
-		grocerySubscriber.start();
-		kidsSubscriber.start();
-		waitingSubscriber.start();
+//		grocerySubscriber.start();
+//		kidsSubscriber.start();
+//		waitingSubscriber.start();
 	}
 }
