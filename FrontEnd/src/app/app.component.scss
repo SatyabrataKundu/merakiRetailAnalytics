@@ -45,23 +45,55 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      margin-bottom: 50px;
 
-      .card{
+      .card-green{
         flex-grow: 3;
-        height: 3vw;
         width: fit-content;
-        padding: 30px;
-        padding-top: 40px;
-        padding-bottom: 40px;
+        padding: 10px;
         border-radius: 0.5vw;
         margin-inline-end: 2vw;
         text-align: center;
         justify-content: center;
-        color: rgb(66, 66, 66);
-        background:rgb(255, 255, 255);
-        //border: 2px dotted rgb(177, 177, 177);
-        box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.212);
+        color: rgb(243, 237, 237);
+        background:rgba(15, 165, 35, 0.733);
+        border: 3px solid rgba(39, 68, 39, 0.432);
+        // box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.651);
+
+        span{
+          font-size: 0.77vw;
+          font-weight: 500;
+        }
+      }
+      .card-red{
+        flex-grow: 3;
+        width: fit-content;
+        padding: 10px;
+        border-radius: 0.5vw;
+        margin-inline-end: 2vw;
+        text-align: center;
+        justify-content: center;
+        color: rgb(243, 237, 237);
+        background:rgba(114, 14, 14, 0.603);
+        border: 3px solid rgb(73, 38, 38);
+        // box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.651);
+
+        span{
+          font-size: 0.77vw;
+          font-weight: 500;
+        }
+      }
+      .card-yellow{
+        flex-grow: 3;
+        width: fit-content;
+        padding: 10px;
+        border-radius: 0.5vw;
+        margin-inline-end: 2vw;
+        text-align: center;
+        justify-content: center;
+        color: rgb(243, 237, 237);
+        background:rgb(204, 201, 8);
+        border: 3px solid rgba(71, 60, 8, 0.589);
+        // box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.651);
 
         span{
           font-size: 0.77vw;
