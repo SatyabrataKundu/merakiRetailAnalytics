@@ -316,7 +316,7 @@ router.get("/zones", function (req, res) {
     var responseObject = {};
   
     var zoneList = [];
-    var selectQuery = "select zone_id as zoneId, zone_name as zoneName from meraki.meraki_zones where zone_name not like 'Checkout%'";
+    var selectQuery = "select zone_id as zoneId, zone_name as zoneName from meraki.realtime_zones where zone_name not like 'Checkout%'";
     db.any(selectQuery)
     .then(function (result) {
         console.log("db select success for date ", result);
@@ -335,24 +335,14 @@ router.get("/currentVisitorsPerZone", function (req, res) {
     let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
     let hourValue = dateFormat(datetime, "H");
 
-    var selectQuery = "SELECT COUNT(DISTINCT(cam.person_oid)), zones.zone_id , zones.zone_name from meraki.meraki_zones zones left join meraki.camera_detections cam "
-    +" on cam.zoneid = zones.zone_id and  "
+    var selectQuery = "SELECT (case when sum(cam.entrances) > 0 then sum(cam.entrances) else 0 end) as count, zones.zone_id , zones.zone_name from meraki.realtime_zones zones left join meraki.realtime_mqtt_detections cam "
+    +" on cam.zone_id = zones.zone_id and  "
     +" cam.dateformat_date = '"+formattedDateString+"' and cam.dateformat_hour="+hourValue 
-    +" and cam.dateformat_minute= (select dateformat_minute from meraki.camera_detections "
-    +" order by unique_camera_detection_key desc LIMIT 1 ) "
-    +" where  zones.zone_name not like 'Checkout%'"	
+    // +" and cam.dateformat_minute= (select dateformat_minute from meraki.realtime_mqtt_detections "
+    // +" order by unique_mqtt_detection_key desc LIMIT 1 ) "
     +" group by zones.zone_id, zones.zone_name";
 
-    var checkoutSelectQuery = "SELECT COUNT(DISTINCT(cam.person_oid)), 15 , 'Checkout'"
-    +" from meraki.camera_detections cam, meraki.meraki_zones zones where "
-    +" cam.zoneid = zones.zone_id and  "
-    +" cam.dateformat_date = '"+formattedDateString+"' and cam.dateformat_hour="+hourValue 
-    +" and  zones.zone_name like 'Checkout%'"
-    +" and cam.dateformat_minute= (select dateformat_minute from meraki.camera_detections "
-    +" order by unique_camera_detection_key desc LIMIT 1 ) ";
-
-    var finalSelect = selectQuery + " UNION ALL " + checkoutSelectQuery;
-    db.any(finalSelect)
+    db.any(selectQuery)
         .then(function (result) {
             console.log("db select success for date ", result);
             res.status(200).send(result);

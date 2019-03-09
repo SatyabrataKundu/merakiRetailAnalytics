@@ -144,11 +144,11 @@ router.get("/currentVisitorCount", function (req, res) {
     let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
     let hourValue = dateFormat(datetime, "H");
 
-    var selectQuery = "SELECT COUNT(DISTINCT(person_oid)) as visitor_count"
-    +" from meraki.camera_detections where "
+    var selectQuery = "SELECT sum(entrances) as visitor_count"
+    +" from meraki.realtime_mqtt_detections where "
     +" dateformat_date = '"+formattedDateString+"' and dateformat_hour="+hourValue 
-    +" and dateformat_minute= (select dateformat_minute from meraki.camera_detections "
-    +" order by unique_camera_detection_key desc LIMIT 1 ) 	";
+    +" and dateformat_minute= (select dateformat_minute from meraki.realtime_mqtt_detections "
+    +" order by unique_mqtt_detection_key desc LIMIT 1 ) 	";
     db.any(selectQuery)
         .then(function (result) {
             console.log("db select success for date ", result);
