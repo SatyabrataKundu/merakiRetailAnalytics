@@ -37,7 +37,7 @@ function _performPosUrlPost() {
     })
     var genTotalAmount = rn.generator({
         min: 2,
-        max: 1000,
+        max: 500,
         integer: true
     })
     var genBillingCounterNumber = rn.generator({
