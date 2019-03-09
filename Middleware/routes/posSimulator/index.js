@@ -143,4 +143,58 @@ router.get("/totalTransactions", function (req, res) {
         });
 });
 
+
+router.post("/realtimepos",function(req,res){
+    var datetime = new Date();
+
+    let counterNumber = req.body.pos_counter_number;
+    let numberOfItems = req.body.number_of_items;
+    let totalAmt = req.body.total_amount;
+    let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
+    let yearValue = dateFormat(datetime, "yyyy");
+    let monthValue = dateFormat(datetime, "m");
+    let weekValue = dateFormat(datetime, "W");
+    let dayValue = dateFormat(datetime, "d");
+    let hourValue = dateFormat(datetime, "H");
+    let minuteValue = dateFormat(datetime, "M");
+    var insertQueryForDB = "INSERT INTO meraki.realtime_pos_data "
+        + "(no_of_items,"
+        + "total_amount,"
+        + "pos_counter_number,"
+        + "datetime, "
+        + "dateformat_date,"
+        + "dateformat_year, "
+        + "dateformat_month,"
+        + "dateformat_week, "
+        + "dateformat_day, "
+        + "dateformat_hour, "
+        + "dateformat_minute)"
+        + " VALUES ("
+        + numberOfItems + ","
+        + totalAmt + ","
+        + counterNumber + ","
+        + datetime.getTime() + ",'"
+        + formattedDateString + "',"
+        + yearValue + ","
+        + monthValue + ","
+        + weekValue + ","
+        + dayValue + ","
+        + hourValue + ","
+        + minuteValue
+        + ")";
+
+    db.none(insertQueryForDB)
+        .then(function (response) {
+            console.log("db insert success ");
+            let responseObj = {};
+            responseObj.message = "SUCCESS";
+            res.status(200).send(responseObj);
+        })
+        .catch(function (err) {
+            console.log("not able to get connection " + err);
+            res.status(500).send(JSON.stringify(err.message));
+
+        });
+
+})
 module.exports = router;
