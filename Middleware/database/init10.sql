@@ -1,4 +1,4 @@
-CREATE SEQUENCE eraki.realtime_pos_data_key_seq;
+CREATE SEQUENCE Meraki.realtime_pos_data_key_seq;
 CREATE TABLE meraki.realtime_pos_data
 (
     unique_realtime_pos_data_key integer NOT NULL DEFAULT nextval('meraki.realtime_pos_data_key_seq'::regclass),
