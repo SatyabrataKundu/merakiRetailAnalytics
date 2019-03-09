@@ -146,7 +146,7 @@ router.get("/currentVisitorCount", function (req, res) {
 
     var selectQuery = "SELECT sum(temp.zone_count) as visitor_count from (SELECT (case when max(cam.entrances) > 0 then max(cam.entrances) else 0 end) as zone_count, zones.zone_id , zones.zone_name from meraki.realtime_zones zones left join meraki.realtime_mqtt_detections cam "
         + " on cam.zone_id = zones.zone_id and  "
-        + " cam.dateformat_date = '" + formattedDateString + "' and cam.dateformat_hour=14"//+hourValue 
+        + " cam.dateformat_date = '" + formattedDateString + "' and cam.dateformat_hour="+hourValue 
         + " and cam.dateformat_minute =(select dateformat_minute from meraki.realtime_mqtt_detections "
         + " order by unique_mqtt_detection_key desc LIMIT 1 ) "
         + " group by zones.zone_id, zones.zone_name) as temp";
