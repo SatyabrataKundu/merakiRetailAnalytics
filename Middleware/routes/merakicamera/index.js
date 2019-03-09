@@ -337,12 +337,14 @@ router.get("/currentVisitorsPerZone", function (req, res) {
     let formattedDateString = dateFormat(datetime, "yyyy-mm-dd");
     let hourValue = dateFormat(datetime, "H");
 
-    var selectQuery = "SELECT (case when sum(cam.entrances) > 0 then sum(cam.entrances) else 0 end) as count, zones.zone_id , zones.zone_name from meraki.realtime_zones zones left join meraki.realtime_mqtt_detections cam "
+    var selectQuery = "SELECT (case when max(cam.entrances) > 0 then max(cam.entrances) else 0 end) as count, zones.zone_id , zones.zone_name from meraki.realtime_zones zones left join meraki.realtime_mqtt_detections cam "
     +" on cam.zone_id = zones.zone_id and  "
     +" cam.dateformat_date = '"+formattedDateString+"' and cam.dateformat_hour="+hourValue 
-    // +" and cam.dateformat_minute= (select dateformat_minute from meraki.realtime_mqtt_detections "
-    // +" order by unique_mqtt_detection_key desc LIMIT 1 ) "
+     +" and cam.dateformat_minute =(select dateformat_minute from meraki.realtime_mqtt_detections "
+    +" order by unique_mqtt_detection_key desc LIMIT 1 ) "
     +" group by zones.zone_id, zones.zone_name";
+
+    console.log(selectQuery);
 
     db.any(selectQuery)
         .then(function (result) {

@@ -42,7 +42,7 @@ function _performPosUrlPost() {
     })
     var genBillingCounterNumber = rn.generator({
         min: 1,
-        max: 5,
+        max: 1,
         integer: true
     })
     var genNumberOfTransactions = rn.generator({
