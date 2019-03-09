@@ -21,7 +21,8 @@ export class ChartsComponent implements OnInit {
   zoneDataFetched: any;
   zoneLabels: any;
   zoneChartFlag: boolean = false;
-  selectedValue3: any;
+  selectedValueZone: any;
+  selectedValuePeriod: any;
   count:number = 0;
 
   period = [
@@ -37,6 +38,14 @@ export class ChartsComponent implements OnInit {
   scanningDataFetched: any;
   proximityChartData = [];
   scanningChartData = [];
+
+  zoneAnalysisInitData: any;
+  visitorPatternInitData: any;
+
+  zoneHttpOptions = {
+    "zoneId": "1",
+    "timeRange": "today"	
+  };
 
   public chartType: string = "bar";
   public chartLabels: Array<any> = [];
@@ -158,7 +167,7 @@ export class ChartsComponent implements OnInit {
     this.zoneName = zone.value;
     this.chartService.setZoneId(zone);
     
-    if(this.count > 0){
+    
       this.chartService.getZoneChartData()
     .subscribe(res => {
       this.chartLabels2 = [];
@@ -170,8 +179,7 @@ export class ChartsComponent implements OnInit {
 
     this.setZoneChartLabels(this.chartLabels2);
       this.zoneAnalysisChartUpdate();
-    }
-    this.count++;
+  
   }
 
   changeZoneGran(gran){
@@ -229,9 +237,58 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.selectedValue = 'Hourly Till Now'
+    this.selectedValueZone = 1;
+    this.selectedValuePeriod = 'Hourly Till Now';
+
     this.http.get('http://localhost:4004/api/v0/meraki/camera/zones')
     .subscribe(res => {
       this.zones = res;
     })
-  }
+
+
+    this.http.post('http://localhost:4004/api/v0/meraki/camera/clients', this.zoneHttpOptions)
+    .subscribe(res => {
+      this.chartData2=[];
+      this.zoneAnalysisInitData = res;
+      for(let i of this.zoneAnalysisInitData){
+        this.chartData2.push(i.detected_clients);
+      }
+      this.setZoneChartData(this.chartData2);
+    })
+
+
+    this.http.post('http://localhost:4004/api/v0/meraki/camera/clients', this.zoneHttpOptions)
+    .subscribe(res => {
+      this.chartLabels2=[];
+      this.zoneAnalysisInitData = res;
+      for(let i of this.zoneAnalysisInitData){
+        this.chartLabels2.push(i.timerange);
+      }
+      this.setZoneChartLabels(this.chartLabels2);
+    })
+
+
+    this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorPattern?pattern=today')
+    .subscribe(res => {
+      this.chartData=[];
+      this.visitorPatternInitData=res;
+      for(let i of this.visitorPatternInitData){
+        this.chartData.push(i.count);
+      }
+      this.setChartData(this.chartData);
+    })
+
+    this.http.get('http://localhost:4004/api/v0/meraki/scanning/visitorPattern?pattern=today')
+    .subscribe(res => {
+      this.chartLabels=[];
+      this.visitorPatternInitData=res;
+      for(let i of this.visitorPatternInitData){
+        this.chartLabels.push(i.timerange);
+      }
+      this.setChartLabels(this.chartLabels);
+    })
+
+    }
 }

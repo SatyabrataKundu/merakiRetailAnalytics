@@ -10,7 +10,7 @@ export class ChartdataService {
   granularity:any;
   zoneHttpOptions = {
     "zoneId": "",
-    "timeRange": ""	
+    "timeRange": "today"	
     
   };
 
