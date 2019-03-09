@@ -45,26 +45,80 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      margin-bottom: 50px;
+      // margin-bottom: 50px;
 
-      .card{
+      // .card{
+      //   flex-grow: 3;
+      //   width: fit-content;
+      //   padding: 30px;
+      //   padding-top: 40px;
+      //   padding-bottom: 40px;
+      //   border-radius: 0.5vw;
+      //   margin-inline-end: 2vw;
+      //   text-align: center;
+      //   justify-content: center;
+      //   color: rgb(66, 66, 66);
+      //   background:rgb(255, 255, 255);
+      //   //border: 2px dotted rgb(177, 177, 177);
+      //   box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.212);
+
+      //   span{
+      //     font-size: 1.3vw;
+      //     font-weight: 500;
+      //   }
+      // }
+
+      .card-green{
         flex-grow: 3;
-        height: 3vw;
         width: fit-content;
         padding: 30px;
-        padding-top: 40px;
-        padding-bottom: 40px;
         border-radius: 0.5vw;
         margin-inline-end: 2vw;
         text-align: center;
         justify-content: center;
-        color: rgb(66, 66, 66);
-        background:rgb(255, 255, 255);
+        color: rgb(243, 237, 237);
+        background:rgb(22, 80, 30);
         //border: 2px dotted rgb(177, 177, 177);
         box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.212);
 
         span{
-          font-size: 0.77vw;
+          font-size: 1.4vw;
+          font-weight: 500;
+        }
+      }
+      .card-red{
+        flex-grow: 3;
+        width: fit-content;
+        padding: 30px;
+        border-radius: 0.5vw;
+        margin-inline-end: 2vw;
+        text-align: center;
+        justify-content: center;
+        color: rgb(243, 237, 237);
+        background:rgb(95, 10, 10);
+        //border: 2px dotted rgb(177, 177, 177);
+        box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.212);
+
+        span{
+          font-size: 1.4vw;
+          font-weight: 500;
+        }
+      }
+      .card-yellow{
+        flex-grow: 3;
+        width: fit-content;
+        padding: 30px;
+        border-radius: 0.5vw;
+        margin-inline-end: 2vw;
+        text-align: center;
+        justify-content: center;
+        color: rgb(243, 237, 237);
+        background:rgb(204, 201, 8);
+        //border: 2px dotted rgb(177, 177, 177);
+        box-shadow: 0px 5px 5px rgba(136, 136, 136, 0.212);
+
+        span{
+          font-size: 1.4vw;
           font-weight: 500;
         }
       }
@@ -156,4 +210,3 @@ footer{
     font-size: 0.9vw;
   }
 }
-
