@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, timer} from 'rxjs';
 import { NotifierService } from 'angular-notifier';
+import { MatSlideToggleChange } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +18,18 @@ export class AppComponent implements OnInit{
   message: string;
   notificationCount: number=0;
   emptyZones: Array<string> =[];
+  zones:any;
 
   private notifier: NotifierService;
 
   constructor(private http: HttpClient,  notifier: NotifierService){
     this.notifier = notifier;
+  }
+
+  toggle(i,event: MatSlideToggleChange){
+    console.log(i.zoneid);
+    console.log(i.zonename);
+    console.log(event.checked);
   }
 
   public showNotification( type: string, message: string ): void {
@@ -61,6 +69,11 @@ export class AppComponent implements OnInit{
       }
     })
     )
+
+    this.http.get('http://localhost:4004/api/v0/meraki/camera/zones')
+    .subscribe(res => {
+      this.zones = res;
+    })
 
   }
 }
