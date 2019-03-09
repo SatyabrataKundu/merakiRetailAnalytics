@@ -121,7 +121,7 @@ export class DonutChartComponent implements OnInit {
     )
 
     Observable
-    timer(1, 1000 * 60).subscribe(() =>
+    timer(1, 1000 * 30).subscribe(() =>
       this.http.get('http://localhost:4004/api/v0/meraki/camera/currentVisitorsPerZone')
         .subscribe(res => {
           this.chartData2 = [];
