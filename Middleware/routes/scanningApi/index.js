@@ -40,7 +40,7 @@ router.get("/visitorCountByDate", function (req, res) {
     let date = req.query.date || dateFormat(datetime, "yyyy-mm-dd");
     console.log("value of date ", date);
 
-    db.any("select count (distinct (client_mac_address)) from meraki.scanning_ap_data where dateformat_date ='" + date + "'")
+    db.any("select sum(entrances) as \"count\"  from meraki.realtime_mqtt_detections where dateformat_date ='" + date + "'")
         .then(function (result) {
             console.log("db select success for date ", result);
             res.status(200).send(result);
