@@ -15,15 +15,15 @@ export class InformationCardsComponent implements OnInit {
   totalAmount : any;
   totalVisitors : any;
   totalCheckouts : any;
-  constructor(private http : HttpClient) { 
-    
+  constructor(private http : HttpClient) {
+
   }
 
- 
+
   ngOnInit() {
-    
+
     Observable
-    timer(500, 1000 * 30).subscribe(() => {
+    timer(500, 5000).subscribe(() => {
       this.http.get('http://localhost:4004/api/v0/meraki/scanning/currentVisitorCount')
       .subscribe(res => {
         this.temp = res;
