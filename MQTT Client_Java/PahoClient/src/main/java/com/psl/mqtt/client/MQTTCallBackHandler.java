@@ -18,8 +18,8 @@ public class MQTTCallBackHandler implements MqttCallback {
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 		// TODO Auto-generated method stub
 
-		System.out.println("Topic " + topic);
-		System.out.println(message.toString());
+		//System.out.println("Topic " + topic);
+		//System.out.println(message.toString());
 		JSONObject data = new JSONObject(message.toString());
 		Runnable runnable = new DAO(data, App.zoneMapping.get(topic));
 		Thread th = new Thread(runnable);
